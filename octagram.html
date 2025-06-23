@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Octagram</title>
+    <link rel="stylesheet" href="octagram.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="circle"></div>
+      <div class="subsquare subsquare1">
+        <div class="rune rune1">1</div>
+        <div class="rune rune3">3</div>
+        <div class="rune rune5">5</div>
+        <div class="rune rune7">7</div>
+      </div>
+      <div class="subsquare subsquare2">
+        <div class="rune rune2">2</div>
+        <div class="rune rune4">4</div>
+        <div class="rune rune6">6</div>
+        <div class="rune rune8">8</div>
+      </div>
+    </div>
+    <script>
+      CSS.paintWorklet.addModule("../runeWorklet.js");
+    </script>
+  </body>
+</html>

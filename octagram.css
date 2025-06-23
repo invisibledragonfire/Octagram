@@ -1,0 +1,99 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  margin: 0;
+
+  background-color: aliceblue;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+}
+
+.container {
+  width: 80vmin;
+  height: 80vmin;
+  display: grid;
+  grid-template-areas: "magic";
+  justify-items: center;
+  align-items: center;
+}
+
+.circle,
+.subsquare {
+  grid-area: magic;
+}
+
+.circle {
+  border: 1px solid black;
+  border-radius: 50%;
+  width: 100%;
+  height: 100%;
+}
+
+.subsquare {
+  width: 70.7%;
+  height: 70.7%;
+  position: relative;
+}
+
+.subsquare1 {
+  border: 1px solid red;
+}
+
+.subsquare2 {
+  border: 1px solid green;
+  transform: rotate(45deg);
+  transform-origin: center;
+}
+
+.subsquare2 .rune {
+  transform: rotate(-45deg);
+  transform-origin: center;
+}
+
+.rune {
+  background: paint(rune-smith);
+
+  width: 6vmin;
+  height: 6vmin;
+  background-color: blueviolet;
+  position: absolute;
+
+  align-content: center;
+  text-align: center;
+  border-radius: 50%;
+
+  font-size: 4vmin;
+  color: azure;
+}
+
+.rune1,
+.rune2 {
+  top: 0;
+  left: 0;
+}
+
+.rune3,
+.rune4 {
+  top: 0;
+  right: 0;
+}
+
+.rune5,
+.rune6 {
+  bottom: 0;
+  right: 0;
+}
+
+.rune7,
+.rune8 {
+  bottom: 0;
+  left: 0;
+}
