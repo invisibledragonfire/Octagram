@@ -26,7 +26,8 @@ body {
 }
 
 .circle,
-.subsquare {
+.subsquare,
+.links {
   grid-area: magic;
 }
 
@@ -38,17 +39,12 @@ body {
 }
 
 .subsquare {
-  width: 70.7%;
+  width: 70.7%; /* sqrt(2) / 2 */
   height: 70.7%;
   position: relative;
 }
 
-.subsquare1 {
-  border: 1px solid red;
-}
-
 .subsquare2 {
-  border: 1px solid green;
   transform: rotate(45deg);
   transform-origin: center;
 }
@@ -96,4 +92,77 @@ body {
 .rune8 {
   bottom: 0;
   left: 0;
+}
+
+.links {
+  width: calc(100% - calc(6vmin * 2 * 0.707));
+  height: calc(100% - calc(6vmin * 2 * 0.707));
+  border: 1px solid black;
+  border-radius: 50%;
+
+  display: grid;
+  grid-template-areas: "link";
+  justify-items: center;
+  align-items: center;
+}
+
+.longbox {
+  width: 38.3%; /* sqrt(2 - sqrt(2)) / 2 */
+  height: 92.4%; /* sqrt(2 + sqrt(2)) / 2 */
+  position: relative;
+  border: 4px solid blue;
+  grid-area: link;
+  transform: rotate(22.5deg);
+}
+
+.longbox2 {
+  transform: rotate(67.5deg);
+  border-color: blueviolet;
+}
+
+.longbox3 {
+  transform: rotate(112.5deg);
+  border-color: goldenrod;
+}
+
+.longbox4 {
+  transform: rotate(157.5deg);
+  border-color: orange;
+}
+
+.square {
+  width: 70.7%; /* sqrt(2) / 2 */
+  height: 70.7%;
+  position: relative;
+  grid-area: link;
+  border: 4px solid green;
+}
+
+.square2 {
+  transform: rotate(45deg);
+  transform-origin: center;
+  border-color: greenyellow;
+}
+
+.diagonal {
+  width: 0%;
+  height: 100%;
+  position: relative;
+  border: 2px solid orchid;
+  grid-area: link;
+}
+
+.diagonal2 {
+  transform: rotate(45deg);
+  border-color: blue;
+}
+
+.diagonal3 {
+  transform: rotate(90deg);
+  border-color: black;
+}
+
+.diagonal4 {
+  transform: rotate(135deg);
+  border-color: grey;
 }
