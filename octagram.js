@@ -9,7 +9,9 @@ function dragstartHandler(ev) {
 
   // Add this element's id to the drag payload so the drop handler will
   // know which element to add to its tree
-  ev.dataTransfer.setData("text", ev.target.id);
+  console.log(ev.target.id);
+  console.log(ev.target.id.split("rune")[1]);
+  ev.dataTransfer.setData("startRune", ev.target.id.split("rune")[1]);
   ev.dataTransfer.effectAllowed = "move";
 }
 
@@ -18,8 +20,20 @@ function dropHandler(ev) {
 
   ev.preventDefault();
   // Get the id of the target and add the element to the target's DOM
-  const data = ev.dataTransfer.getData("text");
-  console.log("Drag complete ");
+  const startRune = ev.dataTransfer.getData("startRune");
+  const endRune = ev.target.id.split("rune")[1];
+
+  const runes = [startRune, endRune].sort();
+
+  const runeLinkProperty = `--link-${runes[0]}-${runes[1]}`;
+
+  const linksElement = document.getElementById("links");
+  console.log(linksElement);
+  linksElement.attributeStyleMap.set(
+    runeLinkProperty,
+    1 - linksElement.attributeStyleMap.get(runeLinkProperty)
+  );
+  console.log(linksElement.attributeStyleMap);
 }
 
 function dragoverHandler(ev) {
