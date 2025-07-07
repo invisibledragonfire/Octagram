@@ -16,6 +16,12 @@ body {
   justify-items: center;
 }
 
+@keyframes rotate {
+  100% {
+    transform: rotate(1turn);
+  }
+}
+
 .container {
   width: 80vmin;
   height: 80vmin;
@@ -23,6 +29,9 @@ body {
   grid-template-areas: "magic";
   justify-items: center;
   align-items: center;
+
+  animation: linear rotate 120s;
+  animation-iteration-count: infinite;
 }
 
 .circle,
@@ -45,13 +54,23 @@ body {
 }
 
 .subsquare2 {
-  transform: rotate(45deg);
+  transform: rotate(calc(1 / 8 * 1turn));
   transform-origin: center;
 }
 
+@keyframes rotate-modified {
+  100% {
+    transform: rotate(calc(7 / 8 * 1turn));
+  }
+}
+
 .subsquare2 .rune {
-  transform: rotate(-45deg);
+  transform: rotate(calc(-1 / 8 * 1turn));
   transform-origin: center;
+
+  animation: linear rotate-modified 120s;
+  animation-iteration-count: infinite;
+  animation-direction: reverse;
 }
 
 .rune {
@@ -68,6 +87,10 @@ body {
 
   font-size: 4vmin;
   color: azure;
+
+  animation: linear rotate 120s;
+  animation-iteration-count: infinite;
+  animation-direction: reverse;
 }
 
 .rune1,
@@ -106,8 +129,8 @@ body {
   align-items: center;
 
   --link-color: rebeccapurple;
+  --link-width: 4px;
 
-  --link: 1;
   --link-1-2: 0;
   --link-1-3: 0;
   --link-1-4: 0;
@@ -150,36 +173,36 @@ body {
   position: relative;
   border: 4px solid var(--link-color);
 
-  border-top-width: calc(var(--link-2-3) * 4px);
-  border-right-width: calc(var(--link-3-6) * 4px);
-  border-bottom-width: calc(var(--link-6-7) * 4px);
-  border-left-width: calc(var(--link-2-7) * 4px);
+  border-top-width: calc(var(--link-2-3) * var(--link-width));
+  border-right-width: calc(var(--link-3-6) * var(--link-width));
+  border-bottom-width: calc(var(--link-6-7) * var(--link-width));
+  border-left-width: calc(var(--link-2-7) * var(--link-width));
   grid-area: link;
-  transform: rotate(22.5deg);
+  transform: rotate(calc(1 / 16 * 1turn));
 }
 
 .longbox2 {
-  transform: rotate(67.5deg);
-  border-top-width: calc(var(--link-3-4) * 4px);
-  border-right-width: calc(var(--link-4-7) * 4px);
-  border-bottom-width: calc(var(--link-7-8) * 4px);
-  border-left-width: calc(var(--link-3-8) * 4px);
+  transform: rotate(calc(3 / 16 * 1turn));
+  border-top-width: calc(var(--link-3-4) * var(--link-width));
+  border-right-width: calc(var(--link-4-7) * var(--link-width));
+  border-bottom-width: calc(var(--link-7-8) * var(--link-width));
+  border-left-width: calc(var(--link-3-8) * var(--link-width));
 }
 
 .longbox3 {
-  transform: rotate(112.5deg);
-  border-top-width: calc(var(--link-4-5) * 4px);
-  border-right-width: calc(var(--link-5-8) * 4px);
-  border-bottom-width: calc(var(--link-1-8) * 4px);
-  border-left-width: calc(var(--link-1-4) * 4px);
+  transform: rotate(calc(5 / 16 * 1turn));
+  border-top-width: calc(var(--link-4-5) * var(--link-width));
+  border-right-width: calc(var(--link-5-8) * var(--link-width));
+  border-bottom-width: calc(var(--link-1-8) * var(--link-width));
+  border-left-width: calc(var(--link-1-4) * var(--link-width));
 }
 
 .longbox4 {
-  transform: rotate(157.5deg);
-  border-top-width: calc(var(--link-5-6) * 4px);
-  border-right-width: calc(var(--link-1-6) * 4px);
-  border-bottom-width: calc(var(--link-1-2) * 4px);
-  border-left-width: calc(var(--link-2-5) * 4px);
+  transform: rotate(calc(7 / 16 * 1turn));
+  border-top-width: calc(var(--link-5-6) * var(--link-width));
+  border-right-width: calc(var(--link-1-6) * var(--link-width));
+  border-bottom-width: calc(var(--link-1-2) * var(--link-width));
+  border-left-width: calc(var(--link-2-5) * var(--link-width));
 }
 
 .square {
@@ -188,19 +211,19 @@ body {
   position: relative;
   grid-area: link;
   border: 4px solid var(--link-color);
-  border-top-width: calc(var(--link-1-3) * 4px);
-  border-right-width: calc(var(--link-3-5) * 4px);
-  border-bottom-width: calc(var(--link-5-7) * 4px);
-  border-left-width: calc(var(--link-1-7) * 4px);
+  border-top-width: calc(var(--link-1-3) * var(--link-width));
+  border-right-width: calc(var(--link-3-5) * var(--link-width));
+  border-bottom-width: calc(var(--link-5-7) * var(--link-width));
+  border-left-width: calc(var(--link-1-7) * var(--link-width));
 }
 
 .square2 {
-  transform: rotate(45deg);
+  transform: rotate(calc(1 / 8 * 1turn));
   transform-origin: center;
-  border-top-width: calc(var(--link-2-4) * 4px);
-  border-right-width: calc(var(--link-4-6) * 4px);
-  border-bottom-width: calc(var(--link-6-8) * 4px);
-  border-left-width: calc(var(--link-2-8) * 4px);
+  border-top-width: calc(var(--link-2-4) * var(--link-width));
+  border-right-width: calc(var(--link-4-6) * var(--link-width));
+  border-bottom-width: calc(var(--link-6-8) * var(--link-width));
+  border-left-width: calc(var(--link-2-8) * var(--link-width));
 }
 
 .diagonal {
@@ -210,21 +233,21 @@ body {
   border-style: solid;
   border-color: var(--link-color);
   border-width: 0 0 0 0;
-  border-right-width: calc(var(--link-2-6) * 4px);
+  border-right-width: calc(var(--link-2-6) * var(--link-width));
   grid-area: link;
 }
 
 .diagonal2 {
-  transform: rotate(45deg);
-  border-right-width: calc(var(--link-3-7) * 4px);
+  transform: rotate(calc(1 / 8 * 1turn));
+  border-right-width: calc(var(--link-3-7) * var(--link-width));
 }
 
 .diagonal3 {
-  transform: rotate(90deg);
-  border-right-width: calc(var(--link-4-8) * 4px);
+  transform: rotate(calc(2 / 8 * 1turn));
+  border-right-width: calc(var(--link-4-8) * var(--link-width));
 }
 
 .diagonal4 {
-  transform: rotate(135deg);
-  border-right-width: calc(var(--link-1-5) * 4px);
+  transform: rotate(calc(3 / 8 * 1turn));
+  border-right-width: calc(var(--link-1-5) * var(--link-width));
 }

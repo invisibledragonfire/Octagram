@@ -1,25 +1,37 @@
-console.log("HI");
+globalCircleValue = 0;
+connections = {};
+function calculateCircleValue(offset) {
+  let circleValue = 0;
+  let i = 0;
+  for (let a = 1; a <= 7; a++) {
+    for (let b = a + 1; b <= 8; b++) {
+      const [x, y] = [
+        ((a + offset - 1) % 8) + 1,
+        ((b + offset - 1) % 8) + 1,
+      ].sort();
+      connections[`--link-${x}-${y}`] && (circleValue = circleValue | (1 << i));
+      i++;
+    }
+  }
+  return circleValue;
+}
 
-const link = function (runeA, runeB) {
-  console.log(runeA, runeB);
-};
+function updateCircleValue() {
+  let circleValue = 1 << 29;
+  for (let offset = 0; offset < 8; offset++) {
+    val = calculateCircleValue(offset);
+    circleValue > val && (circleValue = val);
+  }
+  globalCircleValue = circleValue;
+}
 
 function dragstartHandler(ev) {
-  console.log(`dragstart: effectAllowed = ${ev.dataTransfer.effectAllowed}`);
-
-  // Add this element's id to the drag payload so the drop handler will
-  // know which element to add to its tree
-  console.log(ev.target.id);
-  console.log(ev.target.id.split("rune")[1]);
   ev.dataTransfer.setData("startRune", ev.target.id.split("rune")[1]);
-  ev.dataTransfer.effectAllowed = "move";
+  ev.dataTransfer.effectAllowed = "link";
 }
 
 function dropHandler(ev) {
-  console.log(`drop: effectAllowed = ${ev.dataTransfer.effectAllowed}`);
-
   ev.preventDefault();
-  // Get the id of the target and add the element to the target's DOM
   const startRune = ev.dataTransfer.getData("startRune");
   const endRune = ev.target.id.split("rune")[1];
 
@@ -28,16 +40,16 @@ function dropHandler(ev) {
   const runeLinkProperty = `--link-${runes[0]}-${runes[1]}`;
 
   const linksElement = document.getElementById("links");
-  console.log(linksElement);
-  linksElement.attributeStyleMap.set(
-    runeLinkProperty,
-    1 - linksElement.attributeStyleMap.get(runeLinkProperty)
-  );
-  console.log(linksElement.attributeStyleMap);
+  const oldValue = connections[runeLinkProperty] || 0;
+  const newValue = 1 - oldValue;
+
+  connections[runeLinkProperty] = newValue;
+  linksElement.attributeStyleMap.set(runeLinkProperty, newValue);
+
+  updateCircleValue(startRune, endRune);
 }
 
 function dragoverHandler(ev) {
-  console.log(`dragover: effectAllowed = ${ev.dataTransfer.effectAllowed}`);
   ev.preventDefault();
 }
 
