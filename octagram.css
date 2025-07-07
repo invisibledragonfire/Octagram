@@ -1,3 +1,9 @@
+@property --rune-value {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 0;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -250,4 +256,15 @@ body {
 .diagonal4 {
   transform: rotate(calc(3 / 8 * 1turn));
   border-right-width: calc(var(--link-1-5) * var(--link-width));
+}
+
+.result {
+  width: 6vmin;
+  height: 6vmin;
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  --rune-value: 37;
+  background: paint(rune-smith);
 }

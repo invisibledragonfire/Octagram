@@ -23,6 +23,9 @@ function updateCircleValue() {
     circleValue > val && (circleValue = val);
   }
   globalCircleValue = circleValue;
+
+  const resultElement = document.getElementById("result");
+  resultElement.attributeStyleMap.set("--rune-value", circleValue);
 }
 
 function dragstartHandler(ev) {
