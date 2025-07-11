@@ -59,7 +59,7 @@ class RuneSmith {
     for (let i = 1; i <= n; i++) {
       this.points.push({
         x:
-          geom.width * 0.5 + geom.width * 0.3 * Math.sin((2 * Math.PI * i) / n),
+          geom.width * 0.5 - geom.width * 0.3 * Math.sin((2 * Math.PI * i) / n),
         y:
           geom.height * 0.5 +
           geom.height * 0.3 * Math.cos((2 * Math.PI * i) / n),
