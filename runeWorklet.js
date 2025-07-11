@@ -1,6 +1,6 @@
 class RuneSmith {
   static get inputProperties() {
-    return ["--rune-value"];
+    return ["--rune-value", "--rune-color"];
   }
 
   sides;
@@ -39,12 +39,14 @@ class RuneSmith {
   paint(ctx, geom, props) {
     // Use `ctx` as if it was a normal canvas
 
+    const runeColor = props.get("--rune-color") || "black";
+
     this.runeValue = props.get("--rune-value").value;
     this.parseRune(this.runeValue);
 
     this.generatePoints(geom, this.sides || 3 + Math.floor(Math.random() * 3));
 
-    ctx.strokeStyle = "black";
+    ctx.strokeStyle = runeColor;
     ctx.lineWidth = 2;
 
     this.drawLines(ctx);
@@ -112,9 +114,9 @@ class RuneSmith {
       y: (startPoint.y + endPoint.y) / 2,
     };
 
-    let factor = 0.3;
+    let factor = 0.4;
     if (this.sides === 3) {
-      factor = 0.4;
+      factor = 0.6;
     }
 
     let verticalOffset = {
@@ -128,9 +130,9 @@ class RuneSmith {
       };
     }
 
-    let horizontalOffset = {
-      x: factor * (startPoint.x - endPoint.x),
-      y: factor * (startPoint.y - endPoint.y),
+    const horizontalOffset = {
+      x: -verticalOffset.y,
+      y: verticalOffset.x,
     };
 
     if (dotNumber === 1) {

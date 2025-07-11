@@ -4,6 +4,12 @@
   initial-value: 0;
 }
 
+@property --rune-color {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: black;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -81,6 +87,7 @@ body {
 
 .rune {
   background: paint(rune-smith);
+  --rune-color: white;
 
   width: 6vmin;
   height: 6vmin;
@@ -121,6 +128,31 @@ body {
 .rune8 {
   bottom: 0;
   left: 0;
+}
+
+.rune1 {
+  --rune-value: 71704;
+}
+.rune2 {
+  --rune-value: 287373;
+}
+.rune3 {
+  --rune-value: 3089;
+}
+.rune4 {
+  --rune-value: 1041;
+}
+.rune5 {
+  --rune-value: 2;
+}
+.rune6 {
+  --rune-value: 4210721;
+}
+.rune7 {
+  --rune-value: 66564;
+}
+.rune8 {
+  --rune-value: 16416;
 }
 
 .links {
