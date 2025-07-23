@@ -30,11 +30,30 @@ function updateCircleValue() {
 
 function dragstartHandler(ev) {
   ev.dataTransfer.setData("startRune", ev.target.id.split("rune")[1]);
+  ev.dataTransfer.dropEffect = "link";
   ev.dataTransfer.effectAllowed = "link";
+}
+
+function spellbookDragstartHandler(ev) {
+  const style = window.getComputedStyle(ev.target);
+  const runeValue = style.getPropertyValue("--rune-value");
+  ev.dataTransfer.setData("runeValue", runeValue);
+  ev.dataTransfer.dropEffect = "copy";
+  ev.dataTransfer.effectAllowed = "copy";
 }
 
 function dropHandler(ev) {
   ev.preventDefault();
+
+  if (ev.dataTransfer.effectAllowed === "copy") {
+    const target = document.getElementById(ev.target.id);
+    target.attributeStyleMap.set(
+      "--rune-value",
+      ev.dataTransfer.getData("runeValue")
+    );
+    return;
+  }
+
   const startRune = ev.dataTransfer.getData("startRune");
   const endRune = ev.target.id.split("rune")[1];
 
@@ -57,7 +76,12 @@ function dragoverHandler(ev) {
 }
 
 const init = function () {
-  const runes = document.querySelectorAll(".rune");
+  const spellbookRunes = document.querySelectorAll(".spellbook .rune");
+  for (const rune of spellbookRunes) {
+    rune.addEventListener("dragstart", spellbookDragstartHandler);
+  }
+
+  const runes = document.querySelectorAll(".magic-circle .rune");
 
   for (const rune of runes) {
     rune.addEventListener("dragstart", dragstartHandler);
