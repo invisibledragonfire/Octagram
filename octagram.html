@@ -6,6 +6,7 @@
     <title>Octagram</title>
     <link rel="stylesheet" href="octagram.css" />
     <script src="octagram.js"></script>
+    <script src="parser.js"></script>
   </head>
   <body>
     <!-- <div class="examples">--rune-value: 644;</div> -->
@@ -27,6 +28,10 @@
       <div id="runeO" class="rune runeO" draggable="true"></div>
       <div id="runeP" class="rune runeP" draggable="true"></div>
       <div id="runeQ" class="rune runeQ" draggable="true"></div>
+      <div id="runeR" class="rune runeR" draggable="true"></div>
+      <div id="runeS" class="rune runeS" draggable="true"></div>
+      <div id="runeT" class="rune runeT" draggable="true"></div>
+      <div id="runeU" class="rune runeU" draggable="true"></div>
     </div>
     <div class="magic-circle">
       <div class="container">
@@ -58,6 +63,9 @@
       </div>
     </div>
     <div id="result" class="result"></div>
+    <div class="cast-button-container">
+      <button id="cast-button" class="cast-button">Cast Spell</button>
+    </div>
     <script>
       CSS.paintWorklet.addModule("../runeWorklet.js");
     </script>

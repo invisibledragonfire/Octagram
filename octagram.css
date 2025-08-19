@@ -38,6 +38,14 @@ body {
   }
 }
 
+.cast-button-container {
+  position: absolute;
+  bottom: 1em;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+
 .spellbook {
   padding: 1em;
 
@@ -181,6 +189,43 @@ body {
 }
 .runeI {
   --rune-value: 1212956;
+}
+.runeJ {
+  --rune-value: 54;
+}
+.runeK {
+  --rune-value: 62;
+}
+.runeL {
+  --rune-value: 1051148;
+}
+.runeM {
+  --rune-value: 4;
+}
+.runeN {
+  --rune-value: 4489250;
+  /* --rune-value: 552; */
+}
+.runeO {
+  --rune-value: 22;
+}
+.runeP {
+  --rune-value: 65554;
+}
+.runeQ {
+  --rune-value: 335905;
+}
+.runeR {
+  --rune-value: 524310;
+}
+.runeS {
+  --rune-value: 32904;
+}
+.runeT {
+  --rune-value: 599073;
+}
+.runeU {
+  --rune-value: 10748225;
 }
 
 .links {

@@ -1,4 +1,5 @@
 globalCircleValue = 0;
+globalOffset = 0;
 connections = {};
 function calculateCircleValue(offset) {
   let circleValue = 0;
@@ -20,7 +21,10 @@ function updateCircleValue() {
   let circleValue = 1 << 29;
   for (let offset = 0; offset < 8; offset++) {
     val = calculateCircleValue(offset);
-    circleValue > val && (circleValue = val);
+    if (circleValue > val) {
+      circleValue = val;
+      globalOffset = offset;
+    }
   }
   globalCircleValue = circleValue;
 
@@ -75,6 +79,30 @@ function dragoverHandler(ev) {
   ev.preventDefault();
 }
 
+function getRunes() {
+  const runes = document.querySelectorAll(".magic-circle .rune");
+  const runeList = [];
+
+  for (const rune of runes) {
+    const style = window.getComputedStyle(rune);
+    const runeValue = style.getPropertyValue("--rune-value");
+    console.log(runeValue);
+
+    runeList.push({ runeValue, id: rune.id });
+  }
+
+  runeList.sort(
+    (runeA, runeB) =>
+      ((Number(runeA.id.slice(4)) + globalOffset - 1) % runes.length) -
+      ((Number(runeB.id.slice(4)) + globalOffset - 1) % runes.length)
+  );
+
+  return {
+    main: globalCircleValue,
+    nodes: runeList.map((rune) => Number(rune.runeValue)),
+  };
+}
+
 const init = function () {
   const spellbookRunes = document.querySelectorAll(".spellbook .rune");
   for (const rune of spellbookRunes) {
@@ -88,6 +116,9 @@ const init = function () {
     rune.addEventListener("dragover", dragoverHandler);
     rune.addEventListener("drop", dropHandler);
   }
+
+  const castButton = document.getElementById("cast-button");
+  castButton.addEventListener("click", () => parseRunes(getRunes));
 };
 
 window.onload = init;
