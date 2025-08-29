@@ -103,6 +103,30 @@ function getRunes() {
   };
 }
 
+function loadFromSpellbook(event) {
+  const style = window.getComputedStyle(event.srcElement);
+  const runeValue = style.getPropertyValue("--rune-value");
+  loadCircle(runeValue);
+}
+
+function loadCircle(circleValue) {
+  const linksElement = document.getElementById("links");
+
+  globalOffset = 0;
+  globalCircleValue = circleValue;
+  let i = 0;
+  for (let a = 1; a <= 7; a++) {
+    for (let b = a + 1; b <= 8; b++) {
+      const runeLinkProperty = `--link-${a}-${b}`;
+      const linkValue = Number(!!(circleValue & (1 << i)));
+      i++;
+
+      connections[runeLinkProperty] = linkValue;
+      linksElement.attributeStyleMap.set(runeLinkProperty, linkValue);
+    }
+  }
+}
+
 const init = function () {
   const spellbookRunes = document.querySelectorAll(".spellbook .rune");
   for (const rune of spellbookRunes) {

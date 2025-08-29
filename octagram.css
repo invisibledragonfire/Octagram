@@ -25,10 +25,12 @@ body {
 
   background-color: aliceblue;
   display: grid;
-  grid-template-areas: "spellbook circle _";
+  grid-template-areas:
+    "crumbs    crumbs crumbs"
+    "spellbook circle _     ";
   grid-template-columns: 1fr auto 1fr;
 
-  align-content: center;
+  /* align-content: center; */
   /* justify-items: center; */
 }
 
@@ -36,6 +38,14 @@ body {
   100% {
     transform: rotate(1turn);
   }
+}
+
+.bread-crumbs {
+  grid-area: crumbs;
+  display: flex;
+  gap: 1em;
+  align-items: center;
+  justify-content: center;
 }
 
 .cast-button-container {
