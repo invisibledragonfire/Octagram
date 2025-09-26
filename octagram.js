@@ -1,6 +1,37 @@
+spell = {
+  rune: 0,
+  children: [
+    {
+      rune: 12,
+      children: [
+        { rune: 12 },
+        { rune: 0 },
+        { rune: 15 },
+        { rune: 84 },
+        { rune: 0 },
+        { rune: 0 },
+        { rune: 0 },
+        { rune: 0 },
+      ],
+    },
+    { rune: 0 },
+    { rune: 0 },
+    { rune: 0 },
+    { rune: 0 },
+    { rune: 0 },
+    { rune: 0 },
+    { rune: 0 },
+  ],
+};
+currentPosition = [];
+currentCircle = spell;
+currentChildrenWithoutOffset = [...spell.children];
+currentBreadCrumb = null;
+
 globalCircleValue = 0;
 globalOffset = 0;
 connections = {};
+
 function calculateCircleValue(offset) {
   let circleValue = 0;
   let i = 0;
@@ -30,6 +61,14 @@ function updateCircleValue() {
 
   const resultElement = document.getElementById("result");
   resultElement.attributeStyleMap.set("--rune-value", circleValue);
+
+  let currentChildren = [...currentChildrenWithoutOffset];
+
+  currentCircle.children = currentChildren
+    .splice(globalOffset)
+    .concat(currentChildrenWithoutOffset);
+
+  currentBreadCrumb.attributeStyleMap.set("--rune-value", circleValue);
 }
 
 function dragstartHandler(ev) {
@@ -93,8 +132,10 @@ function getRunes() {
 
   runeList.sort(
     (runeA, runeB) =>
-      ((Number(runeA.id.slice(4)) + globalOffset - 1) % runes.length) -
-      ((Number(runeB.id.slice(4)) + globalOffset - 1) % runes.length)
+      ((Number(runeA.id.slice(4)) + runes.length - globalOffset - 1) %
+        runes.length) -
+      ((Number(runeB.id.slice(4)) + runes.length - globalOffset - 1) %
+        runes.length)
   );
 
   return {
@@ -127,6 +168,55 @@ function loadCircle(circleValue) {
   }
 }
 
+function initSpellbook() {}
+
+function moveToSubCircle(event) {
+  const style = window.getComputedStyle(event.srcElement);
+  const runeValue = style.getPropertyValue("--rune-value");
+
+  loadCircle(runeValue);
+
+  const runeNumber = event.srcElement.id.slice(4);
+
+  currentPosition.push(runeNumber);
+  currentCircle = currentCircle.children[runeNumber - 1];
+
+  if (!currentCircle.children) {
+    currentCircle.children = Array.from(Array(8)).map(() => ({
+      rune: 0,
+    }));
+  }
+
+  currentChildrenWithoutOffset = [...currentCircle.children];
+
+  for (let n = 1; n <= 8; n++) {
+    setRune(n, currentChildrenWithoutOffset[n - 1].rune);
+  }
+
+  addBreadcrumb(runeValue);
+}
+
+function setRune(runeNumber, runeValue) {
+  const target = document.getElementById(`rune${runeNumber}`);
+  target.attributeStyleMap.set("--rune-value", runeValue);
+}
+
+function addBreadcrumb(runeValue) {
+  const crumbContainer = document.getElementById("bread-crumbs");
+  const crumbTemplate = document.getElementById("crumb-template");
+  const crumbArrowTemplate = document.getElementById("crumb-arrow-template");
+
+  const crumb = crumbTemplate.content.cloneNode(true);
+  crumb.children[0].attributeStyleMap.set("--rune-value", runeValue);
+
+  const crumbArrow = crumbArrowTemplate.content.cloneNode(true);
+
+  crumbContainer.append(crumbArrow);
+  crumbContainer.append(crumb);
+
+  currentBreadCrumb = crumb;
+}
+
 const init = function () {
   const spellbookRunes = document.querySelectorAll(".spellbook .rune");
   for (const rune of spellbookRunes) {
@@ -143,6 +233,8 @@ const init = function () {
 
   const castButton = document.getElementById("cast-button");
   castButton.addEventListener("click", () => parseRunes(getRunes));
+
+  currentBreadCrumb = document.getElementById("crumb-1");
 };
 
 window.onload = init;

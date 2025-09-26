@@ -27,11 +27,12 @@ body {
   display: grid;
   grid-template-areas:
     "crumbs    crumbs crumbs"
-    "spellbook circle _     ";
+    "spellbook circle result"
+    "spellbook button _";
   grid-template-columns: 1fr auto 1fr;
 
-  /* align-content: center; */
-  /* justify-items: center; */
+  align-items: center;
+  justify-items: center;
 }
 
 @keyframes rotate {
@@ -49,22 +50,24 @@ body {
 }
 
 .cast-button-container {
-  position: absolute;
-  bottom: 1em;
-  width: 100%;
-  display: flex;
-  justify-content: space-around;
+  grid-area: button;
 }
 
 .spellbook {
+  grid-area: spellbook;
+  justify-self: stretch;
+}
+
+.spellbook-runes {
   padding: 1em;
 
-  grid-area: spellbook;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(6vmin, 1fr));
   grid-template-rows: repeat(auto-fill, minmax(6vmin, 1fr));
 
   gap: 0.1em;
+
+  overflow: scroll;
 }
 
 .magic-circle {
@@ -237,6 +240,9 @@ body {
 .runeU {
   --rune-value: 10748225;
 }
+.runeV {
+  --rune-value: 2052;
+}
 
 .links {
   width: calc(100% - calc(6vmin * 2 * 0.707));
@@ -381,4 +387,18 @@ body {
   left: 0;
 
   background: paint(rune-smith);
+}
+
+.spell-result {
+  grid-area: result;
+  background-color: aquamarine;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+
+  font-size: 2em;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

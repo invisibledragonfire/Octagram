@@ -5,6 +5,8 @@ function parseRunes(getRunesFunction) {
 
   const result = runeMap[main].value(nodes.map((node) => runeMap[node].value));
   console.log(result);
+  const resultElement = document.getElementById("spell-result");
+  resultElement.innerText = result;
 }
 
 runeMap = {
@@ -27,3 +29,25 @@ runeMap = {
     value: (nodes) => nodes.reduce((sum, add) => sum + add),
   },
 };
+
+// interesting runes:
+
+// 168472
+// 541332
+// 297024
+// 9752
+// 65564
+// 164882
+// 528
+// 8931602
+// 1148428
+// 542992
+// 1125004
+// 533010
+// 4326600
+// 34996944
+// 773
+// 402117
+// 21009106
+// 5391393
+// 34087345
