@@ -192,12 +192,39 @@ function addBreadcrumb(runeValue) {
 
   const crumb = crumbTemplate.content.cloneNode(true);
   crumb.children[0].attributeStyleMap.set("--rune-value", runeValue);
+  crumb.children[0].id = "crumb-" + (currentPosition.length + 1);
   currentBreadCrumb = crumb.children[0];
 
   const crumbArrow = crumbArrowTemplate.content.cloneNode(true);
 
   crumbContainer.append(crumbArrow);
   crumbContainer.append(crumb);
+}
+
+function loadBreadcrumb(event) {
+  const crumbId = event.srcElement.id.split("crumb-")[1];
+  if (!crumbId) {
+    return;
+  }
+  currentPosition.splice(crumbId);
+
+  currentCircle = spell;
+  for (let i = 0; i < crumbId - 1; i++) {
+    currentCircle = currentCircle.children[currentPosition[i] - 1];
+  }
+  const runeValue = currentCircle.rune;
+
+  loadCircle(runeValue);
+
+  currentChildrenWithoutOffset = [...currentCircle.children];
+
+  for (let n = 1; n <= 8; n++) {
+    setRune(n, currentChildrenWithoutOffset[n - 1].rune);
+  }
+
+  while ((nextSibling = event.srcElement.nextSibling)) {
+    event.srcElement.parentNode.removeChild(nextSibling);
+  }
 }
 
 const init = function () {
