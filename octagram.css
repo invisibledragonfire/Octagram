@@ -67,7 +67,7 @@ body {
 
   gap: 0.1em;
 
-  overflow: scroll;
+  overflow: auto;
 }
 
 .magic-circle {
@@ -242,6 +242,15 @@ body {
 }
 .runeV {
   --rune-value: 2052;
+}
+.runeW {
+  --rune-value: 81960;
+}
+.runeX {
+  --rune-value: 522;
+}
+.runeY {
+  --rune-value: 3089;
 }
 
 .links {

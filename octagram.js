@@ -149,8 +149,6 @@ function loadCircle(circleValue) {
   }
 }
 
-function initSpellbook() {}
-
 function moveToSubCircle(event) {
   const style = window.getComputedStyle(event.srcElement);
   const runeValue = style.getPropertyValue("--rune-value");
