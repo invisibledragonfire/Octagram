@@ -11,8 +11,12 @@
   <body>
     <!-- <div class="examples">--rune-value: 644;</div> -->
     <div class="spellbook">
-      <div class="spellbook-runes" onclick="loadFromSpellbook(event)">
-        <div id="runeA" class="rune runeA" draggable="true"></div>
+      <div
+        id="spellbook-runes"
+        class="spellbook-runes"
+        onclick="loadFromSpellbook(event)"
+      >
+        <!-- <div id="runeA" class="rune runeA" draggable="true"></div>
         <div id="runeB" class="rune runeB" draggable="true"></div>
         <div id="runeC" class="rune runeC" draggable="true"></div>
         <div id="runeD" class="rune runeD" draggable="true"></div>
@@ -36,7 +40,7 @@
         <div id="runeV" class="rune runeV" draggable="true"></div>
         <div id="runeW" class="rune runeW" draggable="true"></div>
         <div id="runeX" class="rune runeX" draggable="true"></div>
-        <div id="runeY" class="rune runeY" draggable="true"></div>
+        <div id="runeY" class="rune runeY" draggable="true"></div> -->
       </div>
     </div>
     <div id="bread-crumbs" class="bread-crumbs" onclick="loadBreadcrumb(event)">
@@ -76,6 +80,13 @@
     <div class="cast-button-container">
       <button id="cast-button" class="cast-button">Cast Spell</button>
     </div>
+
+    <template id="spellbook-rune-template">
+      <div class="rune-container">
+        <div class="rune" draggable="true"></div>
+        <div class="rune-name"></div>
+      </div>
+    </template>
 
     <template id="crumb-template">
       <div class="rune"></div>

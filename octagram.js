@@ -225,12 +225,30 @@ function loadBreadcrumb(event) {
   }
 }
 
-const init = function () {
+const initSpellbook = function () {
+  const spellBookRunesContainer = document.getElementById("spellbook-runes");
+  const runeTemplate = document.getElementById("spellbook-rune-template");
+
+  for (const key of Object.keys(runeMap)) {
+    const runeValue = runeMap[key];
+    const runeElement = runeTemplate.content.cloneNode(true);
+    runeElement.children[0].children[0].attributeStyleMap.set(
+      "--rune-value",
+      key
+    );
+    runeElement.children[0].children[1].innerHTML = runeValue.name;
+
+    spellBookRunesContainer.append(runeElement);
+  }
+
   const spellbookRunes = document.querySelectorAll(".spellbook .rune");
+
   for (const rune of spellbookRunes) {
     rune.addEventListener("dragstart", spellbookDragstartHandler);
   }
+};
 
+const init = function () {
   const runes = document.querySelectorAll(".magic-circle .rune");
 
   for (const rune of runes) {
@@ -243,6 +261,8 @@ const init = function () {
   castButton.addEventListener("click", () => parseSpell(spell));
 
   currentBreadCrumb = document.getElementById("crumb-1");
+
+  initSpellbook();
 };
 
 window.onload = init;
