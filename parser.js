@@ -109,16 +109,15 @@ const runeMap = {
     name: "if",
     value: (env, children) => {
       if (parseSpellPart(env, children[0])) {
-        parseSpellPart(env, children[1]);
+        return parseSpellPart(env, children[1]);
       } else if (parseSpellPart(env, children[2])) {
-        parseSpellPart(env, children[3]);
+        return parseSpellPart(env, children[3]);
       } else if (parseSpellPart(env, children[4])) {
-        parseSpellPart(env, children[5]);
-      } else if (parseSpellPart(env, children[6])) {
-        parseSpellPart(env, children[7]);
+        return parseSpellPart(env, children[5]);
       } else {
-        parseSpellPart(env, children[8]);
+        return parseSpellPart(env, children[7]);
       }
+      // unused: parseSpellPart(env, children[6]);
     },
   },
   3089: {
@@ -158,3 +157,12 @@ const runeMap = {
 // 258
 // 39592357
 // 20155932
+// 71704
+// 2
+// 4210721
+// 66564
+// 16416
+// 417864
+// 54
+// 62
+// 1051148

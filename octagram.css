@@ -10,6 +10,12 @@
   initial-value: black;
 }
 
+@property --background-hue {
+  syntax: "<number>";
+  initial-value: 0;
+  inherits: false;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -131,10 +137,12 @@ body {
 .rune {
   background: paint(rune-smith);
   --rune-color: white;
+  --background-hue: 0;
+  --saturation: 0%;
 
   width: 6vmin;
   height: 6vmin;
-  background-color: blueviolet;
+  background-color: hsl(var(--background-hue), var(--saturation), 40%);
 
   align-content: center;
   text-align: center;
@@ -142,6 +150,8 @@ body {
 
   font-size: 4vmin;
   color: azure;
+
+  transition: --background-hue 0.5s;
 }
 
 .magic-circle .rune {
@@ -150,6 +160,8 @@ body {
   animation: linear rotate 120s;
   animation-iteration-count: infinite;
   animation-direction: reverse;
+
+  --saturation: 60%;
 }
 
 .rune1,
@@ -174,83 +186,6 @@ body {
 .rune8 {
   bottom: 0;
   left: 0;
-}
-
-.runeA {
-  --rune-value: 71704;
-}
-.runeB {
-  --rune-value: 287373;
-}
-.runeC {
-  --rune-value: 3089;
-}
-.runeD {
-  --rune-value: 1041;
-}
-.runeE {
-  --rune-value: 2;
-}
-.runeF {
-  --rune-value: 4210721;
-}
-.runeG {
-  --rune-value: 66564;
-}
-.runeH {
-  --rune-value: 16416;
-}
-.runeI {
-  --rune-value: 417864;
-}
-.runeJ {
-  --rune-value: 54;
-}
-.runeK {
-  --rune-value: 62;
-}
-.runeL {
-  --rune-value: 1051148;
-}
-.runeM {
-  --rune-value: 4;
-}
-.runeN {
-  --rune-value: 4489250;
-  /* --rune-value: 552; */
-}
-.runeO {
-  --rune-value: 22;
-}
-.runeP {
-  --rune-value: 65554;
-}
-.runeQ {
-  --rune-value: 335905;
-}
-.runeR {
-  --rune-value: 524310;
-}
-.runeS {
-  --rune-value: 32904;
-}
-.runeT {
-  --rune-value: 599073;
-}
-.runeU {
-  --rune-value: 10748225;
-}
-.runeV {
-  --rune-value: 2052;
-}
-.runeW {
-  --rune-value: 81960;
-}
-.runeX {
-  --rune-value: 522;
-}
-.runeY {
-  --rune-value: 3089;
 }
 
 .links {

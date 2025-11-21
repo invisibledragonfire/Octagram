@@ -62,15 +62,9 @@ function updateCircleValue(circleValue) {
 
   let currentChildren = [...currentChildrenWithoutOffset];
 
-  console.log(globalOffset);
-  console.log(currentChildren.slice(globalOffset, -1));
-  console.log(currentChildrenWithoutOffset.slice(0, globalOffset));
-
   currentCircle.children = currentChildren
     .slice(globalOffset)
     .concat(currentChildrenWithoutOffset.slice(0, globalOffset));
-
-  console.log(currentCircle.children);
 
   currentBreadCrumb.attributeStyleMap.set("--rune-value", circleValue);
 }
@@ -118,6 +112,7 @@ function dropHandler(ev) {
   linksElement.attributeStyleMap.set(runeLinkProperty, newValue);
 
   updateCircleValue(findCircleValue(startRune, endRune));
+  updateCirleRuneColors();
 }
 
 function dragoverHandler(ev) {
@@ -135,6 +130,7 @@ function loadCircle(circleValue) {
   const linksElement = document.getElementById("links");
 
   globalOffset = 0;
+  updateCirleRuneColors();
   globalCircleValue = circleValue;
   let i = 0;
   for (let a = 1; a <= 7; a++) {
@@ -248,6 +244,16 @@ const initSpellbook = function () {
   }
 };
 
+const updateCirleRuneColors = function () {
+  for (let runeNumber = 1; runeNumber <= 8; runeNumber++) {
+    const target = document.getElementById(`rune${runeNumber}`);
+    target.attributeStyleMap.set(
+      "--background-hue",
+      (360 / 8) * ((runeNumber + 8 - globalOffset) % 8)
+    );
+  }
+};
+
 const init = function () {
   const runes = document.querySelectorAll(".magic-circle .rune");
 
@@ -263,6 +269,7 @@ const init = function () {
   currentBreadCrumb = document.getElementById("crumb-1");
 
   initSpellbook();
+  updateCirleRuneColors();
 };
 
 window.onload = init;
