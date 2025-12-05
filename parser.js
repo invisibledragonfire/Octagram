@@ -96,14 +96,14 @@ const runeMap = {
 
   // variables and functions?
   71704: {
-    // set variables
+    // call function with variable
     type: "variable",
-    name: "set",
+    name: "function",
     value: (env, children) => {
-      env[children[0]] = children[1];
-      env[children[2]] = children[3];
-      env[children[4]] = children[5];
-      env[children[6]] = children[7];
+      env[children[1].rune] = parseSpellPart(env, children[2]);
+      env[children[3].rune] = parseSpellPart(env, children[4]);
+      env[children[5].rune] = parseSpellPart(env, children[6]);
+      return parseSpellPart(env, children[0]);
     },
   },
   287373: {
@@ -111,7 +111,7 @@ const runeMap = {
     type: "any", // matches variable
     name: "get",
     value: (env, children) => {
-      return env[children[0]];
+      return env[children[0].rune];
     },
   },
 
