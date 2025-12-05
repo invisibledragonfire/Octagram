@@ -57,8 +57,27 @@ const runeMap = {
   // attacks
 
   // colours
+  8931602: {
+    type: "color",
+    name: "color",
+    value: (env, children) => {
+      let r = 0,
+        g = 0,
+        b = 0;
+      let mult = 1;
+      if (children) {
+        for (const child of children) {
+          r += (parseSpellPart(env, child) & 1) * mult;
+          g += (parseSpellPart(env, child) & 2) * mult;
+          b += (parseSpellPart(env, child) & 4) * mult;
+          mult *= 2;
+        }
+      }
+      return "rgb(" + r + "," + g + "," + b + ")";
+    },
+  },
 
-  // variables
+  // variables and functions?
   71704: {
     // set variables
     type: "variable",
@@ -130,19 +149,34 @@ const runeMap = {
       }
     },
   },
+
+  // implementation specific IO
+  1148428: {
+    // set background colors
+    type: "empty",
+    name: "set background",
+    value: (env, children) => {
+      console.log("setting background", parseSpellPart(env, children[0]));
+      const target = document.getElementById("body");
+      target.attributeStyleMap.set(
+        "background-color",
+        parseSpellPart(env, children[0])
+      );
+    },
+  },
 };
 
 // interesting runes:
 
-// 168472
+// 168472 number?
 // 541332
 // 297024
 // 9752
 // 65564
 // 164882
 // 528
-// 8931602
-// 1148428
+// 8931602 color?
+// 1148428 set background color?
 // 542992
 // 1125004
 // 533010
