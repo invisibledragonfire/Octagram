@@ -40,6 +40,23 @@ const runeMap = {
   32904: { type: "number", name: "7", value: () => 7 },
   599073: { type: "number", name: "8", value: () => 8 },
   10748225: { type: "number", name: "9", value: () => 9 },
+  168472: {
+    // TODO expand to nested numbers with more than 8 digits
+    type: "number",
+    name: "number",
+    value: (env, children) => {
+      base = 8;
+      mult = 1;
+      sum = 0;
+      children
+        .map((child) => parseSpellPart(env, child))
+        .forEach((value) => {
+          sum += value * mult;
+          mult *= base;
+        });
+      return sum;
+    },
+  },
 
   // arithmatic
   2052: {
