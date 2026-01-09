@@ -323,16 +323,6 @@ body {
   border-right-width: calc(var(--link-1-5) * var(--link-width));
 }
 
-.result {
-  width: 6vmin;
-  height: 6vmin;
-  position: absolute;
-  top: 0;
-  left: 0;
-
-  background: paint(rune-smith);
-}
-
 .spell-result {
   grid-area: result;
   background-color: aquamarine;

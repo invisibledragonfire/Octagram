@@ -55,9 +55,6 @@ function findCircleValue() {
 function updateCircleValue(circleValue) {
   globalCircleValue = circleValue;
 
-  const resultElement = document.getElementById("result");
-  resultElement.attributeStyleMap.set("--rune-value", circleValue);
-
   currentCircle.rune = circleValue;
 
   let currentChildren = [...currentChildrenWithoutOffset];
