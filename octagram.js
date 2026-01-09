@@ -200,7 +200,7 @@ function loadBreadcrumb(event) {
   if (!crumbId) {
     return;
   }
-  currentPosition.splice(crumbId);
+  currentPosition.splice(crumbId - 1);
 
   currentCircle = spell;
   for (let i = 0; i < crumbId - 1; i++) {

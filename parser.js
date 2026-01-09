@@ -94,11 +94,11 @@ const runeMap = {
     },
   },
 
-  // variables and functions?
+  // variables
   71704: {
     // call function with variable
-    type: "variable",
-    name: "function",
+    type: "any",
+    name: "set", // and execute one spellpart
     value: (env, children) => {
       env[children[1].rune] = parseSpellPart(env, children[2]);
       env[children[3].rune] = parseSpellPart(env, children[4]);
@@ -115,7 +115,38 @@ const runeMap = {
     },
   },
 
-  //boolean
+  // functions
+  34996944: {
+    type: "function",
+    name: "function",
+    value: () => (a, b, c, d, e, f, g) => {
+      env[children[1].rune] = a;
+      env[children[2].rune] = b;
+      env[children[3].rune] = c;
+      env[children[4].rune] = d;
+      env[children[5].rune] = e;
+      env[children[6].rune] = f;
+      env[children[7].rune] = g;
+
+      return this.parseSpellPart(env, children[0].rune);
+    },
+  },
+  39592357: {
+    type: "any",
+    name: "apply function",
+    value: () =>
+      this.parseSpellPart(env, env[children[0].rune])(
+        this.parseSpellPart(env, env[children[1].rune]),
+        this.parseSpellPart(env, env[children[2].rune]),
+        this.parseSpellPart(env, env[children[3].rune]),
+        this.parseSpellPart(env, env[children[4].rune]),
+        this.parseSpellPart(env, env[children[5].rune]),
+        this.parseSpellPart(env, env[children[6].rune]),
+        this.parseSpellPart(env, env[children[7].rune])
+      ),
+  },
+
+  // boolean
   81960: { type: "boolean", name: "true", value: () => true },
   522: { type: "boolean", name: "false", value: () => false },
   2: {
@@ -198,7 +229,7 @@ const runeMap = {
 // 1125004
 // 533010
 // 4326600
-// 34996944
+// 34996944 define function?
 // 773
 // 402117
 // 21009106
@@ -206,7 +237,7 @@ const runeMap = {
 // 34087345
 // 270729
 // 258
-// 39592357
+// 39592357 use function?
 // 20155932
 // 71704
 // 2
