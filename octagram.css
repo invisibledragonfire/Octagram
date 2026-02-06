@@ -64,9 +64,20 @@ body {
   justify-self: stretch;
 }
 
-.spellbook-runes {
+.spellbook-sections {
   padding: 1em;
+}
 
+.spellbook-sections details {
+  background-color: lightgreen;
+  padding: 0.5em;
+  margin: 0.5em 0;
+
+  border: 2px solid green;
+  border-radius: 0.5em;
+}
+
+.rune-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(6vmin, 1fr));
   grid-template-rows: repeat(auto-fill, minmax(6vmin, 1fr));

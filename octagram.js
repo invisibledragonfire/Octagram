@@ -1,5 +1,5 @@
-spell = {
-  rune: 0,
+getBasicSpellFromRune = (rune) => ({
+  rune,
   children: [
     { rune: 0, number: 1 },
     { rune: 0, number: 2 },
@@ -10,7 +10,8 @@ spell = {
     { rune: 0, number: 7 },
     { rune: 0, number: 8 },
   ],
-};
+});
+spell = getBasicSpellFromRune(0);
 currentPosition = [];
 currentCircle = spell;
 currentChildrenWithoutOffset = [...spell.children];
@@ -73,9 +74,7 @@ function dragstartHandler(ev) {
 }
 
 function spellbookDragstartHandler(ev) {
-  const style = window.getComputedStyle(ev.target);
-  const runeValue = style.getPropertyValue("--rune-value");
-  ev.dataTransfer.setData("runeValue", runeValue);
+  ev.dataTransfer.setData("spellId", ev.target.id);
   ev.dataTransfer.dropEffect = "copy";
   ev.dataTransfer.effectAllowed = "copy";
 }
@@ -84,12 +83,12 @@ function dropHandler(ev) {
   ev.preventDefault();
 
   if (ev.dataTransfer.effectAllowed === "copy") {
+    const spell = spellBookMap[ev.dataTransfer.getData("spellId")];
     const target = document.getElementById(ev.target.id);
-    const runeValue = ev.dataTransfer.getData("runeValue");
-    target.attributeStyleMap.set("--rune-value", runeValue);
+    target.attributeStyleMap.set("--rune-value", spell.rune);
 
     const targetRuneNumber = getRuneIdNumber(ev.target.id);
-    currentChildrenWithoutOffset[targetRuneNumber - 1].rune = runeValue;
+    currentChildrenWithoutOffset[targetRuneNumber - 1].rune = spell.rune;
 
     return;
   }
@@ -219,19 +218,30 @@ function loadBreadcrumb(event) {
 }
 
 const initSpellbook = function () {
-  const spellBookRunesContainer = document.getElementById("spellbook-runes");
+  const spellBookSectionsContainer =
+    document.getElementById("spellbook-sections");
   const runeTemplate = document.getElementById("spellbook-rune-template");
+  const sectionTemplate = document.getElementById("spellbook-section-template");
 
-  for (const key of Object.keys(runeMap)) {
-    const runeValue = runeMap[key];
-    const runeElement = runeTemplate.content.cloneNode(true);
-    runeElement.children[0].children[0].attributeStyleMap.set(
-      "--rune-value",
-      key
-    );
-    runeElement.children[0].children[1].innerHTML = runeValue.name;
+  for (const section of spellbook) {
+    const sectionElement = sectionTemplate.content.cloneNode(true);
 
-    spellBookRunesContainer.append(runeElement);
+    sectionElement.children[0].children[0].innerHTML = section.title;
+    const spellList = sectionElement.children[0].children[1];
+
+    spellBookSectionsContainer.append(sectionElement);
+
+    for (const spell of section.spells) {
+      const runeElement = runeTemplate.content.cloneNode(true);
+      runeElement.children[0].children[0].attributeStyleMap.set(
+        "--rune-value",
+        spell.spell.rune
+      );
+      runeElement.children[0].children[0].id = `${section.title}_${spell.name}`;
+      runeElement.children[0].children[1].innerHTML = spell.name;
+
+      spellList.append(runeElement);
+    }
   }
 
   const spellbookRunes = document.querySelectorAll(".spellbook .rune");

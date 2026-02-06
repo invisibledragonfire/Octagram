@@ -5,14 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Octagram</title>
     <link rel="stylesheet" href="octagram.css" />
-    <script src="octagram.js"></script>
     <script src="parser.js"></script>
+    <script src="spellbook.js"></script>
+    <script src="octagram.js"></script>
   </head>
   <body id="body">
     <div class="spellbook">
       <div
-        id="spellbook-runes"
-        class="spellbook-runes"
+        id="spellbook-sections"
+        class="spellbook-sections"
         onclick="loadFromSpellbook(event)"
       ></div>
     </div>
@@ -52,6 +53,13 @@
     <div class="cast-button-container">
       <button id="cast-button" class="cast-button">Cast Spell</button>
     </div>
+
+    <template id="spellbook-section-template">
+      <details>
+        <summary></summary>
+        <div class="rune-grid"></div>
+      </details>
+    </template>
 
     <template id="spellbook-rune-template">
       <div class="rune-container">
