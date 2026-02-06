@@ -83,12 +83,14 @@ function dropHandler(ev) {
   ev.preventDefault();
 
   if (ev.dataTransfer.effectAllowed === "copy") {
-    const spell = spellBookMap[ev.dataTransfer.getData("spellId")];
+    const copiedSpell = spellBookMap[ev.dataTransfer.getData("spellId")];
     const target = document.getElementById(ev.target.id);
-    target.attributeStyleMap.set("--rune-value", spell.rune);
+    target.attributeStyleMap.set("--rune-value", copiedSpell.rune);
 
     const targetRuneNumber = getRuneIdNumber(ev.target.id);
-    currentChildrenWithoutOffset[targetRuneNumber - 1].rune = spell.rune;
+    currentCircle.children[targetRuneNumber - 1] = deepCopySpell(copiedSpell);
+    currentChildrenWithoutOffset[targetRuneNumber - 1] =
+      deepCopySpell(copiedSpell);
 
     return;
   }
@@ -118,7 +120,17 @@ function dragoverHandler(ev) {
 function loadFromSpellbook(event) {
   const style = window.getComputedStyle(event.srcElement);
   const runeValue = style.getPropertyValue("--rune-value");
+  const copiedSpell = spellBookMap[event.srcElement.id];
+  currentCircle.rune = copiedSpell.rune;
+  currentCircle.children = deepCopySpell(copiedSpell).children;
   loadCircle(runeValue);
+
+  currentChildrenWithoutOffset = [...currentCircle.children];
+
+  for (let n = 1; n <= 8; n++) {
+    setRune(n, currentChildrenWithoutOffset[n - 1].rune);
+  }
+
   updateCircleValue(runeValue);
 }
 
@@ -231,14 +243,14 @@ const initSpellbook = function () {
 
     spellBookSectionsContainer.append(sectionElement);
 
-    for (const spell of section.spells) {
+    for (const spellObject of section.spells) {
       const runeElement = runeTemplate.content.cloneNode(true);
       runeElement.children[0].children[0].attributeStyleMap.set(
         "--rune-value",
-        spell.spell.rune
+        spellObject.spell.rune
       );
-      runeElement.children[0].children[0].id = `${section.title}_${spell.name}`;
-      runeElement.children[0].children[1].innerHTML = spell.name;
+      runeElement.children[0].children[0].id = `${section.title}_${spellObject.name}`;
+      runeElement.children[0].children[1].innerHTML = spellObject.name;
 
       spellList.append(runeElement);
     }
@@ -259,6 +271,10 @@ const updateCirleRuneColors = function () {
       (360 / 8) * ((runeNumber + 8 - globalOffset) % 8)
     );
   }
+};
+
+const deepCopySpell = function (spellToCopy) {
+  return JSON.parse(JSON.stringify(spellToCopy));
 };
 
 const init = function () {
