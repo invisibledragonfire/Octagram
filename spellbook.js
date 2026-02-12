@@ -14,27 +14,6 @@ getBasicSpellFromRune = (rune) => ({
 
 const spellbook = [
   {
-    title: "spell test",
-    spells: [
-      {
-        name: "2+3",
-        spell: {
-          rune: RUNE.ADD,
-          children: [
-            { ...getBasicSpellFromRune(RUNE.TWO), number: 1 },
-            { ...getBasicSpellFromRune(RUNE.THREE), number: 2 },
-            { rune: RUNE.EMPTY, number: 3 },
-            { rune: RUNE.EMPTY, number: 4 },
-            { rune: RUNE.EMPTY, number: 5 },
-            { rune: RUNE.EMPTY, number: 6 },
-            { rune: RUNE.EMPTY, number: 7 },
-            { rune: RUNE.EMPTY, number: 8 },
-          ],
-        },
-      },
-    ],
-  },
-  {
     title: "utility",
     spells: [{ name: "empty", spell: getBasicSpellFromRune(RUNE.EMPTY) }],
   },
@@ -97,6 +76,95 @@ const spellbook = [
       {
         name: "set background",
         spell: getBasicSpellFromRune(RUNE.SET_BACKGROUND),
+      },
+    ],
+  },
+  {
+    title: "spells",
+    spells: [
+      {
+        name: "2+3",
+        spell: {
+          rune: RUNE.ADD,
+          children: [
+            { ...getBasicSpellFromRune(RUNE.TWO), number: 1 },
+            { ...getBasicSpellFromRune(RUNE.THREE), number: 2 },
+            { rune: RUNE.EMPTY, number: 3 },
+            { rune: RUNE.EMPTY, number: 4 },
+            { rune: RUNE.EMPTY, number: 5 },
+            { rune: RUNE.EMPTY, number: 6 },
+            { rune: RUNE.EMPTY, number: 7 },
+            { rune: RUNE.EMPTY, number: 8 },
+          ],
+        },
+      },
+      {
+        name: "2*5",
+        spell: {
+          rune: RUNE.APPLY_FUNCTION,
+          children: [
+            {
+              ...getBasicSpellFromRune(RUNE.FUNCTION),
+              number: 1,
+              children: [
+                {
+                  rune: RUNE.ADD,
+                  number: 1,
+                  children: [
+                    {
+                      rune: RUNE.GET,
+                      number: 1,
+                      children: [
+                        { rune: RUNE.COLOR, number: 1 },
+                        { rune: RUNE.EMPTY, number: 2 },
+                        { rune: RUNE.EMPTY, number: 3 },
+                        { rune: RUNE.EMPTY, number: 4 },
+                        { rune: RUNE.EMPTY, number: 5 },
+                        { rune: RUNE.EMPTY, number: 6 },
+                        { rune: RUNE.EMPTY, number: 7 },
+                        { rune: RUNE.EMPTY, number: 8 },
+                      ],
+                    },
+                    {
+                      rune: RUNE.GET,
+                      number: 2,
+                      children: [
+                        { rune: RUNE.COLOR, number: 1 },
+                        { rune: RUNE.EMPTY, number: 2 },
+                        { rune: RUNE.EMPTY, number: 3 },
+                        { rune: RUNE.EMPTY, number: 4 },
+                        { rune: RUNE.EMPTY, number: 5 },
+                        { rune: RUNE.EMPTY, number: 6 },
+                        { rune: RUNE.EMPTY, number: 7 },
+                        { rune: RUNE.EMPTY, number: 8 },
+                      ],
+                    },
+                    { rune: RUNE.EMPTY, number: 3 },
+                    { rune: RUNE.EMPTY, number: 4 },
+                    { rune: RUNE.EMPTY, number: 5 },
+                    { rune: RUNE.EMPTY, number: 6 },
+                    { rune: RUNE.EMPTY, number: 7 },
+                    { rune: RUNE.EMPTY, number: 8 },
+                  ],
+                },
+                { rune: RUNE.COLOR, number: 2 },
+                { rune: RUNE.EMPTY, number: 3 },
+                { rune: RUNE.EMPTY, number: 4 },
+                { rune: RUNE.EMPTY, number: 5 },
+                { rune: RUNE.EMPTY, number: 6 },
+                { rune: RUNE.EMPTY, number: 7 },
+                { rune: RUNE.EMPTY, number: 8 },
+              ],
+            },
+            { ...getBasicSpellFromRune(RUNE.FIVE), number: 2 },
+            { rune: RUNE.EMPTY, number: 3 },
+            { rune: RUNE.EMPTY, number: 4 },
+            { rune: RUNE.EMPTY, number: 5 },
+            { rune: RUNE.EMPTY, number: 6 },
+            { rune: RUNE.EMPTY, number: 7 },
+            { rune: RUNE.EMPTY, number: 8 },
+          ],
+        },
       },
     ],
   },

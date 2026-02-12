@@ -139,7 +139,7 @@ const runeMap = {
   // functions
   [RUNE.FUNCTION]: {
     type: "function",
-    value: () => (a, b, c, d, e, f, g) => {
+    value: (env, children) => (a, b, c, d, e, f, g) => {
       env[children[1].rune] = a;
       env[children[2].rune] = b;
       env[children[3].rune] = c;
@@ -148,20 +148,20 @@ const runeMap = {
       env[children[6].rune] = f;
       env[children[7].rune] = g;
 
-      return this.parseSpellPart(env, children[0].rune);
+      return this.parseSpellPart(env, children[0]);
     },
   },
   [RUNE.APPLY_FUNCTION]: {
     type: "any",
-    value: () =>
-      this.parseSpellPart(env, env[children[0].rune])(
-        this.parseSpellPart(env, env[children[1].rune]),
-        this.parseSpellPart(env, env[children[2].rune]),
-        this.parseSpellPart(env, env[children[3].rune]),
-        this.parseSpellPart(env, env[children[4].rune]),
-        this.parseSpellPart(env, env[children[5].rune]),
-        this.parseSpellPart(env, env[children[6].rune]),
-        this.parseSpellPart(env, env[children[7].rune])
+    value: (env, children) =>
+      this.parseSpellPart(env, children[0])(
+        this.parseSpellPart(env, children[1]),
+        this.parseSpellPart(env, children[2]),
+        this.parseSpellPart(env, children[3]),
+        this.parseSpellPart(env, children[4]),
+        this.parseSpellPart(env, children[5]),
+        this.parseSpellPart(env, children[6]),
+        this.parseSpellPart(env, children[7])
       ),
   },
 
