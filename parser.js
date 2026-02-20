@@ -40,7 +40,7 @@ const RUNE = {
   FALSE: 522,
   GREATER: 2,
   //functions
-  FUNCTION: 34996944,
+  FUNCTION: 21009106,
   APPLY_FUNCTION: 39592357,
   //logic
   IF: 1041,
@@ -222,7 +222,7 @@ const runeMap = {
       const target = document.getElementById("body");
       target.attributeStyleMap.set(
         "background-color",
-        parseSpellPart(env, children[0])
+        parseSpellPart(env, children[7])
       );
     },
   },
@@ -243,10 +243,10 @@ const runeMap = {
 // 1125004
 // 533010
 // 4326600
-// 34996944 define function?
+// 34996944
 // 773
 // 402117
-// 21009106
+// 21009106 define function?
 // 5391393
 // 34087345
 // 270729

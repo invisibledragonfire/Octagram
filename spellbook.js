@@ -39,7 +39,25 @@ const spellbook = [
   },
   {
     title: "colors",
-    spells: [{ name: "color", spell: getBasicSpellFromRune(RUNE.COLOR) }],
+    spells: [
+      { name: "color", spell: getBasicSpellFromRune(RUNE.COLOR) },
+      {
+        name: "orange",
+        spell: {
+          rune: RUNE.COLOR,
+          children: [
+            { rune: RUNE.EMPTY, number: 1 },
+            { rune: RUNE.EMPTY, number: 2 },
+            { rune: RUNE.EMPTY, number: 3 },
+            { rune: RUNE.EMPTY, number: 4 },
+            { rune: RUNE.EMPTY, number: 5 },
+            { rune: RUNE.EMPTY, number: 6 },
+            { ...getBasicSpellFromRune(RUNE.THREE), number: 7 },
+            { ...getBasicSpellFromRune(RUNE.ONE), number: 8 },
+          ],
+        },
+      },
+    ],
   },
   {
     title: "variables",

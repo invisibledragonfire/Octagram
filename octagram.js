@@ -120,10 +120,10 @@ function dragoverHandler(ev) {
 function loadFromSpellbook(event) {
   const style = window.getComputedStyle(event.srcElement);
   const runeValue = style.getPropertyValue("--rune-value");
-  if (!runeValue) {
+  const copiedSpell = spellBookMap[event.srcElement.id];
+  if (!copiedSpell) {
     return;
   }
-  const copiedSpell = spellBookMap[event.srcElement.id];
   currentCircle.rune = copiedSpell.rune;
   currentCircle.children = deepCopySpell(copiedSpell).children;
   loadCircle(runeValue);
