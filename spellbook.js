@@ -12,6 +12,19 @@ getBasicSpellFromRune = (rune) => ({
   ],
 });
 
+fillWithEmpty = (runeList) => {
+  const existing = {};
+  for (const runeEntry of runeList) {
+    existing[runeEntry.number] = runeEntry;
+  }
+
+  const filledRuneList = [];
+  for (let i = 1; i <= 8; i++) {
+    filledRuneList.push(existing[i] || { rune: RUNE.EMPTY, number: i });
+  }
+  return filledRuneList;
+};
+
 const spellbook = [
   {
     title: "utility",
@@ -45,16 +58,10 @@ const spellbook = [
         name: "orange",
         spell: {
           rune: RUNE.COLOR,
-          children: [
-            { rune: RUNE.EMPTY, number: 1 },
-            { rune: RUNE.EMPTY, number: 2 },
-            { rune: RUNE.EMPTY, number: 3 },
-            { rune: RUNE.EMPTY, number: 4 },
-            { rune: RUNE.EMPTY, number: 5 },
-            { rune: RUNE.EMPTY, number: 6 },
+          children: fillWithEmpty([
             { ...getBasicSpellFromRune(RUNE.THREE), number: 7 },
             { ...getBasicSpellFromRune(RUNE.ONE), number: 8 },
-          ],
+          ]),
         },
       },
     ],
@@ -104,84 +111,46 @@ const spellbook = [
         name: "2+3",
         spell: {
           rune: RUNE.ADD,
-          children: [
+          children: fillWithEmpty([
             { ...getBasicSpellFromRune(RUNE.TWO), number: 1 },
             { ...getBasicSpellFromRune(RUNE.THREE), number: 2 },
-            { rune: RUNE.EMPTY, number: 3 },
-            { rune: RUNE.EMPTY, number: 4 },
-            { rune: RUNE.EMPTY, number: 5 },
-            { rune: RUNE.EMPTY, number: 6 },
-            { rune: RUNE.EMPTY, number: 7 },
-            { rune: RUNE.EMPTY, number: 8 },
-          ],
+          ]),
         },
       },
       {
         name: "2*5",
         spell: {
           rune: RUNE.APPLY_FUNCTION,
-          children: [
+          children: fillWithEmpty([
             {
               ...getBasicSpellFromRune(RUNE.FUNCTION),
               number: 1,
-              children: [
+              children: fillWithEmpty([
                 {
                   rune: RUNE.ADD,
                   number: 1,
-                  children: [
+                  children: fillWithEmpty([
                     {
                       rune: RUNE.GET,
                       number: 1,
-                      children: [
-                        { rune: RUNE.COLOR, number: 1 },
-                        { rune: RUNE.EMPTY, number: 2 },
-                        { rune: RUNE.EMPTY, number: 3 },
-                        { rune: RUNE.EMPTY, number: 4 },
-                        { rune: RUNE.EMPTY, number: 5 },
-                        { rune: RUNE.EMPTY, number: 6 },
-                        { rune: RUNE.EMPTY, number: 7 },
-                        { rune: RUNE.EMPTY, number: 8 },
-                      ],
+                      children: fillWithEmpty([
+                        { rune: RUNE.VAR_X, number: 1 },
+                      ]),
                     },
                     {
                       rune: RUNE.GET,
                       number: 2,
-                      children: [
-                        { rune: RUNE.COLOR, number: 1 },
-                        { rune: RUNE.EMPTY, number: 2 },
-                        { rune: RUNE.EMPTY, number: 3 },
-                        { rune: RUNE.EMPTY, number: 4 },
-                        { rune: RUNE.EMPTY, number: 5 },
-                        { rune: RUNE.EMPTY, number: 6 },
-                        { rune: RUNE.EMPTY, number: 7 },
-                        { rune: RUNE.EMPTY, number: 8 },
-                      ],
+                      children: fillWithEmpty([
+                        { rune: RUNE.VAR_X, number: 1 },
+                      ]),
                     },
-                    { rune: RUNE.EMPTY, number: 3 },
-                    { rune: RUNE.EMPTY, number: 4 },
-                    { rune: RUNE.EMPTY, number: 5 },
-                    { rune: RUNE.EMPTY, number: 6 },
-                    { rune: RUNE.EMPTY, number: 7 },
-                    { rune: RUNE.EMPTY, number: 8 },
-                  ],
+                  ]),
                 },
-                { rune: RUNE.COLOR, number: 2 },
-                { rune: RUNE.EMPTY, number: 3 },
-                { rune: RUNE.EMPTY, number: 4 },
-                { rune: RUNE.EMPTY, number: 5 },
-                { rune: RUNE.EMPTY, number: 6 },
-                { rune: RUNE.EMPTY, number: 7 },
-                { rune: RUNE.EMPTY, number: 8 },
-              ],
+                { rune: RUNE.VAR_X, number: 2 },
+              ]),
             },
             { ...getBasicSpellFromRune(RUNE.FIVE), number: 2 },
-            { rune: RUNE.EMPTY, number: 3 },
-            { rune: RUNE.EMPTY, number: 4 },
-            { rune: RUNE.EMPTY, number: 5 },
-            { rune: RUNE.EMPTY, number: 6 },
-            { rune: RUNE.EMPTY, number: 7 },
-            { rune: RUNE.EMPTY, number: 8 },
-          ],
+          ]),
         },
       },
     ],

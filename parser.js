@@ -35,6 +35,8 @@ const RUNE = {
   //variables
   SET: 71704,
   GET: 287373,
+  VAR_X: 16416, //no definition, just used as variable
+  VAR_Y: 417864, //no definition, just used as variable
   //boolean
   TRUE: 81960,
   FALSE: 522,
@@ -257,8 +259,8 @@ const runeMap = {
 // 2
 // 4210721
 // 66564
-// 16416
-// 417864
+// 16416 // var x
+// 417864 // var y
 // 54
 // 62
 // 1051148
