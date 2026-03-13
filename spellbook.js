@@ -153,6 +153,161 @@ const spellbook = [
           ]),
         },
       },
+      {
+        name: "Fibonacci",
+        spell: {
+          rune: RUNE.APPLY_FUNCTION,
+          children: fillWithEmpty([
+            {
+              rune: RUNE.FUNCTION,
+              number: 1,
+              children: fillWithEmpty([
+                {
+                  rune: RUNE.WHILE,
+                  number: 1,
+                  children: fillWithEmpty([
+                    {
+                      rune: RUNE.GREATER,
+                      number: 1,
+                      children: fillWithEmpty([
+                        {
+                          rune: RUNE.GET,
+                          number: 2,
+                          children: fillWithEmpty([
+                            {
+                              rune: RUNE.VAR_V,
+                              number: 1,
+                            },
+                          ]),
+                        },
+                        {
+                          rune: RUNE.GET,
+                          number: 4,
+                          children: fillWithEmpty([
+                            {
+                              rune: RUNE.VAR_COUNT,
+                              number: 1,
+                            },
+                            { rune: RUNE.ZERO, number: 2 },
+                          ]),
+                        },
+                      ]),
+                    },
+                    {
+                      rune: RUNE.SET,
+                      number: 2,
+                      children: fillWithEmpty([
+                        { rune: RUNE.ZERO, number: 1 },
+                        {
+                          rune: RUNE.VAR_COUNT,
+                          number: 2,
+                        },
+                        {
+                          rune: RUNE.ADD,
+                          number: 3,
+                          children: fillWithEmpty([
+                            {
+                              rune: RUNE.GET,
+                              number: 1,
+                              children: fillWithEmpty([
+                                {
+                                  rune: RUNE.VAR_COUNT,
+                                  number: 1,
+                                },
+                                { rune: RUNE.ZERO, number: 2 },
+                              ]),
+                            },
+                            { rune: RUNE.ONE, number: 2 },
+                          ]),
+                        },
+                      ]),
+                    },
+                    {
+                      rune: RUNE.APPLY_FUNCTION,
+                      number: 3,
+                      children: fillWithEmpty([
+                        {
+                          rune: RUNE.GET,
+                          number: 1,
+                          children: fillWithEmpty([
+                            { rune: RUNE.VAR_W, number: 1 },
+                          ]),
+                        },
+                      ]),
+                    },
+                  ]),
+                },
+                { rune: RUNE.VAR_W, number: 2 },
+                { rune: RUNE.VAR_V, number: 3 },
+              ]),
+            },
+            {
+              rune: RUNE.FUNCTION,
+              number: 2,
+              children: fillWithEmpty([
+                {
+                  rune: RUNE.SET,
+                  number: 1,
+                  children: fillWithEmpty([
+                    {
+                      rune: RUNE.GET,
+                      number: 1,
+                      children: fillWithEmpty([
+                        { rune: RUNE.VAR_X, number: 1 },
+                      ]),
+                    },
+                    { rune: RUNE.VAR_X, number: 2 },
+                    {
+                      rune: RUNE.ADD,
+                      number: 3,
+                      children: fillWithEmpty([
+                        {
+                          rune: RUNE.GET,
+                          number: 1,
+                          children: fillWithEmpty([
+                            { rune: RUNE.VAR_Y, number: 1 },
+                            { rune: RUNE.ZERO, number: 2 },
+                          ]),
+                        },
+                        {
+                          rune: RUNE.GET,
+                          number: 2,
+                          children: fillWithEmpty([
+                            { rune: RUNE.VAR_Z, number: 1 },
+                            { rune: RUNE.ONE, number: 2 },
+                          ]),
+                        },
+                      ]),
+                    },
+                    { rune: RUNE.VAR_Z, number: 4 },
+                    {
+                      rune: RUNE.GET,
+                      number: 5,
+                      children: fillWithEmpty([
+                        { rune: RUNE.VAR_Y, number: 1 },
+                        { rune: RUNE.ZERO, number: 2 },
+                      ]),
+                    },
+                    { rune: RUNE.VAR_Y, number: 6 },
+                    {
+                      rune: RUNE.GET,
+                      number: 7,
+                      children: fillWithEmpty([
+                        { rune: RUNE.VAR_X, number: 1 },
+                        { rune: RUNE.ZERO, number: 2 },
+                      ]),
+                    },
+                  ]),
+                },
+              ]),
+            },
+            {
+              ...getBasicSpellFromRune(RUNE.FIVE),
+              number: 3,
+            },
+          ]),
+        },
+      },
     ],
   },
 ];

@@ -32,11 +32,16 @@ const RUNE = {
   ADD: 2052,
   //colors
   COLOR: 8931602,
-  //variables
+  //variable access
   SET: 71704,
   GET: 287373,
-  VAR_X: 16416, //no definition, just used as variable
-  VAR_Y: 417864, //no definition, just used as variable
+  //variables, no definition, just used as variables
+  VAR_V: 1051148,
+  VAR_W: 20155932,
+  VAR_X: 16416,
+  VAR_Y: 417864,
+  VAR_Z: 4210721,
+  VAR_COUNT: 66564,
   //boolean
   TRUE: 81960,
   FALSE: 522,
@@ -134,7 +139,11 @@ const runeMap = {
     // read variable
     type: "any", // matches variable
     value: (env, children) => {
-      return env[children[0].rune];
+      const result = env[children[0].rune];
+      //fallback if variable does not exist
+      return result === null || result === undefined
+        ? parseSpellPart(env, children[1])
+        : result;
     },
   },
 
@@ -174,12 +183,18 @@ const runeMap = {
     // comparison
     type: "boolean",
     value: (env, children) => {
+      childValue1 = parseSpellPart(env, children[1]);
+      childValue3 = parseSpellPart(env, children[3]);
+      childValue4 = parseSpellPart(env, children[4]);
+      childValue5 = parseSpellPart(env, children[5]);
+      childValue6 = parseSpellPart(env, children[6]);
+      childValue7 = parseSpellPart(env, children[7]);
       return (
-        parseSpellPart(env, children[1]) > parseSpellPart(env, children[3]) &&
-        parseSpellPart(env, children[1]) > parseSpellPart(env, children[4]) &&
-        parseSpellPart(env, children[1]) > parseSpellPart(env, children[5]) &&
-        parseSpellPart(env, children[1]) > parseSpellPart(env, children[6]) &&
-        parseSpellPart(env, children[1]) > parseSpellPart(env, children[7])
+        childValue1 > childValue3 &&
+        childValue1 > childValue4 &&
+        childValue1 > childValue5 &&
+        childValue1 > childValue6 &&
+        childValue1 > childValue7
       );
     },
   },
@@ -210,9 +225,14 @@ const runeMap = {
     // while
     type: "control",
     value: (env, children) => {
+      let output;
       while (parseSpellPart(env, children[0])) {
-        children.slice(1).map((child) => parseSpellPart(env, child));
+        children.slice(1).forEach((child) => {
+          const result = parseSpellPart(env, child);
+          result !== null && (output = result);
+        });
       }
+      return output;
     },
   },
 
@@ -254,13 +274,13 @@ const runeMap = {
 // 270729
 // 258
 // 39592357 use function?
-// 20155932
+// 20155932 // var w
 // 71704
 // 2
-// 4210721
-// 66564
+// 4210721 // var z
+// 66564 // var count
 // 16416 // var x
 // 417864 // var y
 // 54
 // 62
-// 1051148
+// 1051148 // var v
