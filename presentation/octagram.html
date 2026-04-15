@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Octagram</title>
+    <link rel="stylesheet" href="octagram.css" />
+    <link rel="stylesheet" href="presentation.css" />
+    <script src="presentation.js"></script>
+    <script src="parser.js"></script>
+    <script src="spellbook.js"></script>
+    <script src="octagram.js"></script>
+  </head>
+  <body id="body">
+    <div class="spellbook">
+      <div
+        id="spellbook-sections"
+        class="spellbook-sections"
+        onclick="loadFromSpellbook(event)"
+      ></div>
+    </div>
+    <div id="bread-crumbs" class="bread-crumbs" onclick="loadBreadcrumb(event)">
+      <div id="crumb-1" class="rune"></div>
+    </div>
+    <div class="magic-circle">
+      <div class="container">
+        <div class="circle"></div>
+        <div id="links" class="links">
+          <div class="square"></div>
+          <div class="square square2"></div>
+          <div class="longbox"></div>
+          <div class="longbox longbox2"></div>
+          <div class="longbox longbox3"></div>
+          <div class="longbox longbox4"></div>
+          <div class="diagonal"></div>
+          <div class="diagonal diagonal2"></div>
+          <div class="diagonal diagonal3"></div>
+          <div class="diagonal diagonal4"></div>
+        </div>
+        <div class="subsquare subsquare1" onclick="moveToSubCircle(event)">
+          <div id="rune1" class="rune rune1" draggable="true"></div>
+          <div id="rune3" class="rune rune3" draggable="true"></div>
+          <div id="rune5" class="rune rune5" draggable="true"></div>
+          <div id="rune7" class="rune rune7" draggable="true"></div>
+        </div>
+        <div class="subsquare subsquare2" onclick="moveToSubCircle(event)">
+          <div id="rune2" class="rune rune2" draggable="true"></div>
+          <div id="rune4" class="rune rune4" draggable="true"></div>
+          <div id="rune6" class="rune rune6" draggable="true"></div>
+          <div id="rune8" class="rune rune8" draggable="true"></div>
+        </div>
+      </div>
+    </div>
+    <div id="spell-result" class="spell-result"></div>
+    <div class="cast-button-container">
+      <button id="cast-button" class="cast-button">Cast Spell</button>
+    </div>
+
+    <template id="spellbook-section-template">
+      <details>
+        <summary></summary>
+        <div class="rune-grid"></div>
+      </details>
+    </template>
+
+    <template id="spellbook-rune-template">
+      <div class="rune-container">
+        <div class="rune" draggable="true"></div>
+        <div class="rune-name"></div>
+      </div>
+    </template>
+
+    <template id="crumb-template">
+      <div class="rune"></div>
+    </template>
+
+    <template id="crumb-arrow-template">
+      <div>></div>
+    </template>
+
+    <div id="info" class="info info-hidden">
+      Press <span class="bold">n</span> to
+      <span id="action">Restart</span>
+    </div>
+    <script>
+      CSS.paintWorklet.addModule("borderWorklet.js");
+    </script>
+    <script>
+      CSS.paintWorklet.addModule("../runeWorklet.js");
+    </script>
+  </body>
+</html>

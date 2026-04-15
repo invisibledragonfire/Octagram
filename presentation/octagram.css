@@ -1,0 +1,361 @@
+@property --rune-value {
+  syntax: "<integer>";
+  inherits: false;
+  initial-value: 0;
+}
+
+@property --rune-color {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: black;
+}
+
+@property --background-hue {
+  syntax: "<number>";
+  initial-value: 0;
+  inherits: false;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+
+  background-color: aliceblue;
+  display: grid;
+  grid-template-areas:
+    "crumbs    crumbs crumbs"
+    "spellbook circle result"
+    "spellbook button _";
+  grid-template-columns: 1fr auto 1fr;
+
+  align-items: center;
+  justify-items: center;
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(1turn);
+  }
+}
+
+.bread-crumbs {
+  grid-area: crumbs;
+  display: flex;
+  gap: 1em;
+  align-items: center;
+  justify-content: center;
+}
+
+.cast-button-container {
+  grid-area: button;
+}
+
+.spellbook {
+  grid-area: spellbook;
+  justify-self: stretch;
+}
+
+.spellbook-sections {
+  padding: 1em;
+}
+
+.spellbook-sections details {
+  background-color: lightgreen;
+  padding: 0.5em;
+  margin: 0.5em 0;
+
+  border: 2px solid green;
+  border-radius: 0.5em;
+}
+
+.rune-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(6vmin, 1fr));
+  grid-template-rows: repeat(auto-fill, minmax(6vmin, 1fr));
+
+  gap: 0.1em;
+
+  overflow: auto;
+}
+
+.magic-circle {
+  grid-area: circle;
+  width: 80vmin;
+  height: 80vmin;
+  overflow: hidden;
+}
+
+.container {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-areas: "magic";
+  justify-items: center;
+  align-items: center;
+
+  animation: linear rotate 120s;
+  animation-iteration-count: infinite;
+}
+
+.circle,
+.subsquare,
+.links {
+  grid-area: magic;
+}
+
+.circle {
+  border: 1px solid black;
+  border-radius: 50%;
+  width: 100%;
+  height: 100%;
+}
+
+.subsquare {
+  width: 70.7%; /* sqrt(2) / 2 */
+  height: 70.7%;
+  position: relative;
+}
+
+.subsquare2 {
+  transform: rotate(calc(1 / 8 * 1turn));
+  transform-origin: center;
+}
+
+@keyframes rotate-modified {
+  100% {
+    transform: rotate(calc(7 / 8 * 1turn));
+  }
+}
+
+.magic-circle .subsquare2 .rune {
+  transform: rotate(calc(-1 / 8 * 1turn));
+  transform-origin: center;
+
+  animation: linear rotate-modified 120s;
+  animation-iteration-count: infinite;
+  animation-direction: reverse;
+}
+
+.rune {
+  background: paint(rune-smith);
+  --rune-color: white;
+  --background-hue: 0;
+  --saturation: 0%;
+
+  width: 6vmin;
+  height: 6vmin;
+  background-color: hsl(var(--background-hue), var(--saturation), 40%);
+
+  align-content: center;
+  text-align: center;
+  border-radius: 50%;
+
+  font-size: 4vmin;
+  color: azure;
+
+  transition: --background-hue 0.5s;
+}
+
+.magic-circle .rune {
+  position: absolute;
+
+  animation: linear rotate 120s;
+  animation-iteration-count: infinite;
+  animation-direction: reverse;
+
+  --saturation: 60%;
+}
+
+.rune1,
+.rune2 {
+  top: 0;
+  left: 0;
+}
+
+.rune3,
+.rune4 {
+  top: 0;
+  right: 0;
+}
+
+.rune5,
+.rune6 {
+  bottom: 0;
+  right: 0;
+}
+
+.rune7,
+.rune8 {
+  bottom: 0;
+  left: 0;
+}
+
+.links {
+  width: calc(100% - calc(6vmin * 2 * 0.707));
+  height: calc(100% - calc(6vmin * 2 * 0.707));
+  border: 1px solid black;
+  border-radius: 50%;
+
+  display: grid;
+  grid-template-areas: "link";
+  justify-items: center;
+  align-items: center;
+
+  --link-color: rebeccapurple;
+  --link-width: 4px;
+
+  --link-1-2: 0;
+  --link-1-3: 0;
+  --link-1-4: 0;
+  --link-1-5: 0;
+  --link-1-6: 0;
+  --link-1-7: 0;
+  --link-1-8: 0;
+
+  --link-2-3: 0;
+  --link-2-4: 0;
+  --link-2-5: 0;
+  --link-2-6: 0;
+  --link-2-7: 0;
+  --link-2-8: 0;
+
+  --link-3-4: 0;
+  --link-3-5: 0;
+  --link-3-6: 0;
+  --link-3-7: 0;
+  --link-3-8: 0;
+
+  --link-4-5: 0;
+  --link-4-6: 0;
+  --link-4-7: 0;
+  --link-4-8: 0;
+
+  --link-5-6: 0;
+  --link-5-7: 0;
+  --link-5-8: 0;
+
+  --link-6-7: 0;
+  --link-6-8: 0;
+
+  --link-7-8: 0;
+}
+
+.longbox {
+  width: 38.3%; /* sqrt(2 - sqrt(2)) / 2 */
+  height: 92.4%; /* sqrt(2 + sqrt(2)) / 2 */
+  position: relative;
+  border: 4px solid var(--link-color);
+
+  border-top-width: calc(var(--link-2-3) * var(--link-width));
+  border-right-width: calc(var(--link-3-6) * var(--link-width));
+  border-bottom-width: calc(var(--link-6-7) * var(--link-width));
+  border-left-width: calc(var(--link-2-7) * var(--link-width));
+  grid-area: link;
+  transform: rotate(calc(1 / 16 * 1turn));
+}
+
+.longbox2 {
+  transform: rotate(calc(3 / 16 * 1turn));
+  border-top-width: calc(var(--link-3-4) * var(--link-width));
+  border-right-width: calc(var(--link-4-7) * var(--link-width));
+  border-bottom-width: calc(var(--link-7-8) * var(--link-width));
+  border-left-width: calc(var(--link-3-8) * var(--link-width));
+}
+
+.longbox3 {
+  transform: rotate(calc(5 / 16 * 1turn));
+  border-top-width: calc(var(--link-4-5) * var(--link-width));
+  border-right-width: calc(var(--link-5-8) * var(--link-width));
+  border-bottom-width: calc(var(--link-1-8) * var(--link-width));
+  border-left-width: calc(var(--link-1-4) * var(--link-width));
+}
+
+.longbox4 {
+  transform: rotate(calc(7 / 16 * 1turn));
+  border-top-width: calc(var(--link-5-6) * var(--link-width));
+  border-right-width: calc(var(--link-1-6) * var(--link-width));
+  border-bottom-width: calc(var(--link-1-2) * var(--link-width));
+  border-left-width: calc(var(--link-2-5) * var(--link-width));
+}
+
+.square {
+  width: 70.7%; /* sqrt(2) / 2 */
+  height: 70.7%;
+  position: relative;
+  grid-area: link;
+  border: 4px solid var(--link-color);
+  border-top-width: calc(var(--link-1-3) * var(--link-width));
+  border-right-width: calc(var(--link-3-5) * var(--link-width));
+  border-bottom-width: calc(var(--link-5-7) * var(--link-width));
+  border-left-width: calc(var(--link-1-7) * var(--link-width));
+}
+
+.square2 {
+  transform: rotate(calc(1 / 8 * 1turn));
+  transform-origin: center;
+  border-top-width: calc(var(--link-2-4) * var(--link-width));
+  border-right-width: calc(var(--link-4-6) * var(--link-width));
+  border-bottom-width: calc(var(--link-6-8) * var(--link-width));
+  border-left-width: calc(var(--link-2-8) * var(--link-width));
+}
+
+.diagonal {
+  width: 0%;
+  height: 100%;
+  position: relative;
+  border-style: solid;
+  border-color: var(--link-color);
+  border-width: 0 0 0 0;
+  border-right-width: calc(var(--link-2-6) * var(--link-width));
+  grid-area: link;
+}
+
+.diagonal2 {
+  transform: rotate(calc(1 / 8 * 1turn));
+  border-right-width: calc(var(--link-3-7) * var(--link-width));
+}
+
+.diagonal3 {
+  transform: rotate(calc(2 / 8 * 1turn));
+  border-right-width: calc(var(--link-4-8) * var(--link-width));
+}
+
+.diagonal4 {
+  transform: rotate(calc(3 / 8 * 1turn));
+  border-right-width: calc(var(--link-1-5) * var(--link-width));
+}
+
+.spell-result {
+  grid-area: result;
+  background-color: aquamarine;
+  background-size: contain;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+
+  font-size: 2em;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.element {
+  width: 200px;
+  height: 200px;
+  background-color: transparent;
+  background-repeat: no-repeat;
+}
+
+.no-names {
+  color: transparent;
+}

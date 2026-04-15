@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Octagram Presentation</title>
+    <link rel="stylesheet" href="presentation.css" />
+    <script src="presentation.js"></script>
+  </head>
+  <body>
+    <div class="grid">
+      <div class="all-columns">
+        <h1>Turing Completeness</h1>
+        <p>
+          Turing completeness isn't required to make something a programming
+          language, but it is sufficient. Anything that is turing complete can
+          run theoretically run any program (practically time and memory limit
+          what you can do).
+        </p>
+        <h2 class="to-be-revealed">CSS (with HTML) is turing complete</h2>
+        <p class="to-be-revealed">
+          CSS and HTML mostly deal with the structure of the webpage, leaving
+          Javascript to deal with behavior.
+        </p>
+        <p class="to-be-revealed">
+          However! With modern CSS, you can do computations with just CSS and
+          HTML!
+        </p>
+        <p class="to-be-revealed">
+          Thus we get state of the art
+          <a href="https://codepen.io/Coderindev/pen/zxOePer"
+            >Rule 110 implemented in CSS</a
+          >
+          (<a href="https://blogs.adityabh.is-a.dev/posts/html-css-part-2/"
+            >explanation</a
+          >) (requires human interaction). Since Rule 110 is Turing complete,
+          this also means CSS+HTML is.
+        </p>
+        <p class="to-be-revealed">
+          Just kidding, we can do so much more.
+          <a href="https://lyra.horse/x86css/">Here's an x86 CPU</a> running
+          purely on CSS+HMTL.
+        </p>
+        <h2 class="to-be-revealed">
+          Also,
+          <a href="https://www.youtube.com/watch?v=pdmODVYPDLA"
+            >Magic the Gathering</a
+          >
+          is Turing Complete
+        </h2>
+      </div>
+    </div>
+
+    <div id="info" class="info info-hidden">
+      Press <span class="bold">n</span> to
+      <span id="action">Continue</span>
+    </div>
+    <script>
+      CSS.paintWorklet.addModule("borderWorklet.js");
+    </script>
+  </body>
+</html>

@@ -1,0 +1,312 @@
+getBasicSpellFromRune = (rune) => ({
+  rune,
+  children: [
+    { rune: 0, number: 1 },
+    { rune: 0, number: 2 },
+    { rune: 0, number: 3 },
+    { rune: 0, number: 4 },
+    { rune: 0, number: 5 },
+    { rune: 0, number: 6 },
+    { rune: 0, number: 7 },
+    { rune: 0, number: 8 },
+  ],
+});
+spell = getBasicSpellFromRune(0);
+currentPosition = [];
+currentCircle = spell;
+currentChildrenWithoutOffset = [...spell.children];
+currentBreadCrumb = null;
+
+globalCircleValue = 0;
+globalOffset = 0;
+connections = {};
+
+function calculateCircleValue(offset) {
+  let circleValue = 0;
+  let i = 0;
+  for (let a = 1; a <= 7; a++) {
+    for (let b = a + 1; b <= 8; b++) {
+      const [x, y] = [
+        ((a + offset - 1) % 8) + 1,
+        ((b + offset - 1) % 8) + 1,
+      ].sort();
+      connections[`--link-${x}-${y}`] && (circleValue = circleValue | (1 << i));
+      i++;
+    }
+  }
+  return circleValue;
+}
+
+function getRuneIdNumber(idString) {
+  return idString.split("rune")[1];
+}
+
+function findCircleValue() {
+  let circleValue = 1 << 29;
+  for (let offset = 0; offset < 8; offset++) {
+    val = calculateCircleValue(offset);
+    if (circleValue > val) {
+      circleValue = val;
+      globalOffset = offset;
+    }
+  }
+  return circleValue;
+}
+
+function updateCircleValue(circleValue) {
+  globalCircleValue = circleValue;
+
+  currentCircle.rune = circleValue;
+
+  let currentChildren = [...currentChildrenWithoutOffset];
+
+  currentCircle.children = currentChildren
+    .slice(globalOffset)
+    .concat(currentChildrenWithoutOffset.slice(0, globalOffset));
+
+  if (currentBreadCrumb) {
+    currentBreadCrumb.attributeStyleMap.set("--rune-value", circleValue);
+  }
+}
+
+function dragstartHandler(ev) {
+  ev.dataTransfer.setData("startRune", getRuneIdNumber(ev.target.id));
+  ev.dataTransfer.dropEffect = "link";
+  ev.dataTransfer.effectAllowed = "link";
+}
+
+function spellbookDragstartHandler(ev) {
+  ev.dataTransfer.setData("spellId", ev.target.id);
+  ev.dataTransfer.dropEffect = "copy";
+  ev.dataTransfer.effectAllowed = "copy";
+}
+
+function dropHandler(ev) {
+  ev.preventDefault();
+
+  if (ev.dataTransfer.effectAllowed === "copy") {
+    const copiedSpell = spellBookMap[ev.dataTransfer.getData("spellId")];
+    const target = document.getElementById(ev.target.id);
+    target.attributeStyleMap.set("--rune-value", copiedSpell.rune);
+
+    const targetRuneNumber = getRuneIdNumber(ev.target.id);
+    currentCircle.children[targetRuneNumber - 1] = deepCopySpell(copiedSpell);
+    currentChildrenWithoutOffset[targetRuneNumber - 1] =
+      deepCopySpell(copiedSpell);
+
+    return;
+  }
+
+  const startRune = ev.dataTransfer.getData("startRune");
+  const endRune = getRuneIdNumber(ev.target.id);
+
+  const runes = [startRune, endRune].sort();
+
+  const runeLinkProperty = `--link-${runes[0]}-${runes[1]}`;
+
+  const linksElement = document.getElementById("links");
+  const oldValue = connections[runeLinkProperty] || 0;
+  const newValue = 1 - oldValue;
+
+  connections[runeLinkProperty] = newValue;
+  linksElement.attributeStyleMap.set(runeLinkProperty, newValue);
+
+  updateCircleValue(findCircleValue(startRune, endRune));
+  updateCirleRuneColors();
+}
+
+function dragoverHandler(ev) {
+  ev.preventDefault();
+}
+
+function loadFromSpellbook(event) {
+  const style = window.getComputedStyle(event.srcElement);
+  const runeValue = style.getPropertyValue("--rune-value");
+  const copiedSpell = spellBookMap[event.srcElement.id];
+  if (!copiedSpell) {
+    return;
+  }
+  currentCircle.rune = copiedSpell.rune;
+  currentCircle.children = deepCopySpell(copiedSpell).children;
+  loadCircle(runeValue);
+
+  currentChildrenWithoutOffset = [...currentCircle.children];
+
+  for (let n = 1; n <= 8; n++) {
+    setRune(n, currentChildrenWithoutOffset[n - 1].rune);
+  }
+
+  updateCircleValue(runeValue);
+}
+
+function loadCircle(circleValue) {
+  const linksElement = document.getElementById("links");
+
+  globalOffset = 0;
+  updateCirleRuneColors();
+  globalCircleValue = circleValue;
+  let i = 0;
+  for (let a = 1; a <= 7; a++) {
+    for (let b = a + 1; b <= 8; b++) {
+      const runeLinkProperty = `--link-${a}-${b}`;
+      const linkValue = Number(!!(circleValue & (1 << i)));
+      i++;
+
+      connections[runeLinkProperty] = linkValue;
+      linksElement.attributeStyleMap.set(runeLinkProperty, linkValue);
+    }
+  }
+}
+
+function moveToSubCircle(event) {
+  const style = window.getComputedStyle(event.srcElement);
+  const runeValue = style.getPropertyValue("--rune-value");
+  const runeNumber = getRuneIdNumber(event.srcElement.id);
+
+  if (!runeNumber) {
+    return;
+  }
+
+  loadCircle(runeValue);
+
+  currentPosition.push(runeNumber);
+  currentCircle = currentCircle.children[runeNumber - 1];
+
+  if (!currentCircle.children) {
+    currentCircle.children = Array.from(Array(8)).map(() => ({
+      rune: 0,
+    }));
+  }
+
+  currentChildrenWithoutOffset = [...currentCircle.children];
+
+  for (let n = 1; n <= 8; n++) {
+    setRune(n, currentChildrenWithoutOffset[n - 1].rune);
+  }
+
+  addBreadcrumb(runeValue);
+}
+
+function setRune(runeNumber, runeValue) {
+  const target = document.getElementById(`rune${runeNumber}`);
+  target.attributeStyleMap.set("--rune-value", runeValue);
+}
+
+function addBreadcrumb(runeValue) {
+  const crumbContainer = document.getElementById("bread-crumbs");
+  const crumbTemplate = document.getElementById("crumb-template");
+  const crumbArrowTemplate = document.getElementById("crumb-arrow-template");
+
+  const crumb = crumbTemplate.content.cloneNode(true);
+  crumb.children[0].attributeStyleMap.set("--rune-value", runeValue);
+  crumb.children[0].id = "crumb-" + (currentPosition.length + 1);
+  currentBreadCrumb = crumb.children[0];
+
+  const crumbArrow = crumbArrowTemplate.content.cloneNode(true);
+
+  crumbContainer.append(crumbArrow);
+  crumbContainer.append(crumb);
+}
+
+function loadBreadcrumb(event) {
+  const crumbId = event.srcElement.id.split("crumb-")[1];
+  if (!crumbId) {
+    return;
+  }
+  currentPosition.splice(crumbId - 1);
+
+  currentCircle = spell;
+  for (let i = 0; i < crumbId - 1; i++) {
+    currentCircle = currentCircle.children[currentPosition[i] - 1];
+  }
+  const runeValue = currentCircle.rune;
+
+  loadCircle(runeValue);
+
+  currentChildrenWithoutOffset = [...currentCircle.children];
+
+  for (let n = 1; n <= 8; n++) {
+    setRune(n, currentChildrenWithoutOffset[n - 1].rune);
+  }
+
+  while ((nextSibling = event.srcElement.nextSibling)) {
+    event.srcElement.parentNode.removeChild(nextSibling);
+  }
+}
+
+const initSpellbook = function () {
+  const spellBookSectionsContainer =
+    document.getElementById("spellbook-sections");
+  const runeTemplate = document.getElementById("spellbook-rune-template");
+  const sectionTemplate = document.getElementById("spellbook-section-template");
+
+  console.log("hi", spellBookSectionsContainer);
+  if (!spellBookSectionsContainer) {
+    return;
+  }
+
+  for (const section of spellbook) {
+    const sectionElement = sectionTemplate.content.cloneNode(true);
+
+    sectionElement.children[0].children[0].innerHTML = section.title;
+    const spellList = sectionElement.children[0].children[1];
+
+    spellBookSectionsContainer.append(sectionElement);
+
+    for (const spellObject of section.spells) {
+      const runeElement = runeTemplate.content.cloneNode(true);
+      runeElement.children[0].children[0].attributeStyleMap.set(
+        "--rune-value",
+        spellObject.spell.rune,
+      );
+      runeElement.children[0].children[0].id = `${section.title}_${spellObject.name}`;
+      runeElement.children[0].children[1].innerHTML = spellObject.name;
+
+      spellList.append(runeElement);
+    }
+  }
+
+  const spellbookRunes = document.querySelectorAll(".spellbook .rune");
+
+  for (const rune of spellbookRunes) {
+    rune.addEventListener("dragstart", spellbookDragstartHandler);
+  }
+};
+
+const updateCirleRuneColors = function () {
+  for (let runeNumber = 1; runeNumber <= 8; runeNumber++) {
+    const target = document.getElementById(`rune${runeNumber}`);
+    target.attributeStyleMap.set(
+      "--background-hue",
+      (360 / 8) * ((runeNumber + 8 - globalOffset) % 8),
+    );
+  }
+};
+
+const deepCopySpell = function (spellToCopy) {
+  return JSON.parse(JSON.stringify(spellToCopy));
+};
+
+const init = function () {
+  const runes = document.querySelectorAll(".magic-circle .rune");
+
+  for (const rune of runes) {
+    rune.addEventListener("dragstart", dragstartHandler);
+    rune.addEventListener("dragover", dragoverHandler);
+    rune.addEventListener("drop", dropHandler);
+  }
+
+  const castButton = document.getElementById("cast-button");
+  if (castButton) {
+    castButton.addEventListener("click", () => parseSpell(spell));
+  }
+
+  currentBreadCrumb = document.getElementById("crumb-1");
+
+  initSpellbook();
+  updateCirleRuneColors();
+
+  initPresentation();
+};
+
+window.onload = init;

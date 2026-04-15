@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Octagram Presentation</title>
+    <link rel="stylesheet" href="presentation.css" />
+    <script src="presentation.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div>
+        <h1>What is a <span class="">programming</span> language?</h1>
+        <p class="to-be-revealed">
+          Instructions that tell the computer what to do.
+        </p>
+      </div>
+
+      <div class="bouncy to-be-revealed red">
+        <p>Java</p>
+      </div>
+      <div class="bouncy to-be-revealed blue">
+        <p>Javascript</p>
+      </div>
+      <div class="bouncy to-be-revealed green">
+        <p>Assembly</p>
+      </div>
+      <div class="bouncy to-be-revealed orange">
+        <p>Python</p>
+      </div>
+      <div class="bouncy to-be-revealed cyan">
+        <p>BASIC</p>
+      </div>
+      <div class="bouncy to-be-revealed yellow">
+        <p>CSS</p>
+      </div>
+      <div class="bouncy to-be-revealed purple">
+        <p>HTML</p>
+      </div>
+    </div>
+    <div id="info" class="info info-hidden">
+      Press <span class="bold">n</span> to
+      <span id="action">Continue</span>
+    </div>
+    <script>
+      CSS.paintWorklet.addModule("borderWorklet.js");
+    </script>
+  </body>
+</html>

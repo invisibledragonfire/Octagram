@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Octagram Presentation</title>
+    <link rel="stylesheet" href="presentation.css" />
+    <script src="presentation.js"></script>
+  </head>
+  <body>
+    <div class="compact-grid">
+      <h1 class="all-columns">The Plan</h1>
+      <p class="all-columns to-be-revealed">
+        Create an esoteric programming language that looks and feels like using
+        a magic circle to cast a spell.
+      </p>
+      <div class="person to-be-revealed"></div>
+      <div class="sketched-circle to-be-revealed"></div>
+      <div class="fire to-be-revealed"></div>
+    </div>
+
+    <div id="info" class="info info-hidden">
+      Press <span class="bold">n</span> to
+      <span id="action">Continue</span>
+    </div>
+    <script>
+      CSS.paintWorklet.addModule("borderWorklet.js");
+    </script>
+  </body>
+</html>
