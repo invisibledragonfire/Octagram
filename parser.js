@@ -14,6 +14,7 @@ function parseSpellPart(env, spell) {
   return result;
 }
 
+//TODO in general, need to go over rune shapes and find good ones both at macro and micro scales
 const RUNE = {
   EMPTY: 0,
   //numbers
@@ -27,11 +28,18 @@ const RUNE = {
   SEVEN: 32904,
   EIGHT: 599073,
   NINE: 10748225,
-  NUMBER: 168472,
+  NUMBER: 168472, //TODO figure out a good way to make this intuitive
   //arithmetic
   ADD: 2052,
   //colors
   COLOR: 8931602,
+  //elements
+  ELEMENT: 4984897, //TODO do I need this?
+  EARTH: 528457,
+  FIRE: 4460609,
+  WATER: 790593,
+  AIR: 286816,
+
   //variable access
   SET: 71704,
   GET: 287373,
@@ -100,7 +108,14 @@ const runeMap = {
         .reduce((sum, add) => sum + add),
   },
 
+  //strings
+  [RUNE.A]: { type: "string", value: () => "a" },
+
   // elements
+  [RUNE.FIRE]: { type: "element", value: () => RUNE.FIRE },
+  [RUNE.WATER]: { type: "element", value: () => RUNE.WATER },
+  [RUNE.EARTH]: { type: "element", value: () => RUNE.EARTH },
+  [RUNE.AIR]: { type: "element", value: () => RUNE.AIR },
 
   // attacks
 
@@ -172,7 +187,7 @@ const runeMap = {
         this.parseSpellPart(env, children[4]),
         this.parseSpellPart(env, children[5]),
         this.parseSpellPart(env, children[6]),
-        this.parseSpellPart(env, children[7])
+        this.parseSpellPart(env, children[7]),
       ),
   },
 
@@ -244,7 +259,7 @@ const runeMap = {
       const target = document.getElementById("body");
       target.attributeStyleMap.set(
         "background-color",
-        parseSpellPart(env, children[7])
+        parseSpellPart(env, children[7]),
       );
     },
   },

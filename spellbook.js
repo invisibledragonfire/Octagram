@@ -67,6 +67,15 @@ const spellbook = [
     ],
   },
   {
+    title: "elements",
+    spells: [
+      { name: "Fire", spell: getBasicSpellFromRune(RUNE.FIRE) },
+      { name: "Water", spell: getBasicSpellFromRune(RUNE.WATER) },
+      { name: "Earth", spell: getBasicSpellFromRune(RUNE.EARTH) },
+      { name: "Air", spell: getBasicSpellFromRune(RUNE.AIR) },
+    ],
+  },
+  {
     title: "variables",
     spells: [
       { name: "set", spell: getBasicSpellFromRune(RUNE.SET) },

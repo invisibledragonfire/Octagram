@@ -250,7 +250,7 @@ const initSpellbook = function () {
       const runeElement = runeTemplate.content.cloneNode(true);
       runeElement.children[0].children[0].attributeStyleMap.set(
         "--rune-value",
-        spellObject.spell.rune
+        spellObject.spell.rune,
       );
       runeElement.children[0].children[0].id = `${section.title}_${spellObject.name}`;
       runeElement.children[0].children[1].innerHTML = spellObject.name;
@@ -271,7 +271,7 @@ const updateCirleRuneColors = function () {
     const target = document.getElementById(`rune${runeNumber}`);
     target.attributeStyleMap.set(
       "--background-hue",
-      (360 / 8) * ((runeNumber + 8 - globalOffset) % 8)
+      (360 / 8) * ((runeNumber + 8 - globalOffset) % 8),
     );
   }
 };
