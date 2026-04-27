@@ -104,6 +104,11 @@ body {
 
   animation: linear rotate 120s;
   animation-iteration-count: infinite;
+  animation-play-state: paused;
+}
+
+.magic-circle.rotation-on .container {
+  animation-play-state: running;
 }
 
 .circle,
@@ -143,6 +148,11 @@ body {
   animation: linear rotate-modified 120s;
   animation-iteration-count: infinite;
   animation-direction: reverse;
+  animation-play-state: paused;
+}
+
+.magic-circle.rotation-on .subsquare2 .rune {
+  animation-play-state: running;
 }
 
 .rune {
@@ -167,12 +177,15 @@ body {
 
 .magic-circle .rune {
   position: absolute;
-
+  --saturation: 60%;
   animation: linear rotate 120s;
   animation-iteration-count: infinite;
   animation-direction: reverse;
+  animation-play-state: paused;
+}
 
-  --saturation: 60%;
+.magic-circle.rotation-on .rune {
+  animation-play-state: running;
 }
 
 .rune1,
@@ -346,4 +359,10 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.rotation-toggle {
+  position: absolute;
+  top: 2em;
+  right: 2em;
 }

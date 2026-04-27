@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -20,7 +20,7 @@
     <div id="bread-crumbs" class="bread-crumbs" onclick="loadBreadcrumb(event)">
       <div id="crumb-1" class="rune"></div>
     </div>
-    <div class="magic-circle">
+    <div id="magic-circle" class="magic-circle rotation-on">
       <div class="container">
         <div class="circle"></div>
         <div id="links" class="links">
@@ -50,6 +50,9 @@
       </div>
     </div>
     <div id="spell-result" class="spell-result"></div>
+    <button id="rotation-toggle" class="rotation-toggle">
+      Toggle Rotation Animation
+    </button>
     <div class="cast-button-container">
       <button id="cast-button" class="cast-button">Cast Spell</button>
     </div>

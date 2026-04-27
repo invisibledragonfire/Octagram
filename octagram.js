@@ -232,6 +232,11 @@ function loadBreadcrumb(event) {
   }
 }
 
+const toggleRotation = function () {
+  const magicCircle = document.getElementById("magic-circle");
+  magicCircle.classList.toggle("rotation-on");
+};
+
 const initSpellbook = function () {
   const spellBookSectionsContainer =
     document.getElementById("spellbook-sections");
@@ -291,6 +296,9 @@ const init = function () {
 
   const castButton = document.getElementById("cast-button");
   castButton.addEventListener("click", () => parseSpell(spell));
+
+  const rotationToggleButton = document.getElementById("rotation-toggle");
+  rotationToggleButton.addEventListener("click", () => toggleRotation());
 
   currentBreadCrumb = document.getElementById("crumb-1");
 
