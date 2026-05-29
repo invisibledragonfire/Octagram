@@ -264,7 +264,7 @@ const initSpellbook = function () {
     }
   }
 
-  const spellbookRunes = document.querySelectorAll(".spellbook .rune");
+  const spellbookRunes = document.querySelectorAll("spell-book .rune");
 
   for (const rune of spellbookRunes) {
     rune.addEventListener("dragstart", spellbookDragstartHandler);
@@ -286,7 +286,7 @@ const deepCopySpell = function (spellToCopy) {
 };
 
 const init = function () {
-  const runes = document.querySelectorAll(".magic-circle .rune");
+  const runes = document.querySelectorAll("magic-circle .rune");
 
   for (const rune of runes) {
     rune.addEventListener("dragstart", dragstartHandler);

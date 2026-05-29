@@ -59,7 +59,7 @@ body {
   grid-area: button;
 }
 
-.spellbook {
+spell-book {
   grid-area: spellbook;
   justify-self: stretch;
 }
@@ -87,7 +87,7 @@ body {
   overflow: auto;
 }
 
-.magic-circle {
+magic-circle {
   grid-area: circle;
   width: 80vmin;
   height: 80vmin;
@@ -107,7 +107,7 @@ body {
   animation-play-state: paused;
 }
 
-.magic-circle.rotation-on .container {
+magic-circle.rotation-on .container {
   animation-play-state: running;
 }
 
@@ -141,7 +141,7 @@ body {
   }
 }
 
-.magic-circle .subsquare2 .rune {
+magic-circle .subsquare2 .rune {
   transform: rotate(calc(-1 / 8 * 1turn));
   transform-origin: center;
 
@@ -151,7 +151,7 @@ body {
   animation-play-state: paused;
 }
 
-.magic-circle.rotation-on .subsquare2 .rune {
+magic-circle.rotation-on .subsquare2 .rune {
   animation-play-state: running;
 }
 
@@ -175,7 +175,7 @@ body {
   transition: --background-hue 0.5s;
 }
 
-.magic-circle .rune {
+magic-circle .rune {
   position: absolute;
   --saturation: 60%;
   animation: linear rotate 120s;
@@ -184,7 +184,7 @@ body {
   animation-play-state: paused;
 }
 
-.magic-circle.rotation-on .rune {
+magic-circle.rotation-on .rune {
   animation-play-state: running;
 }
 

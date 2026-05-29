@@ -10,17 +10,17 @@
     <script src="octagram.js"></script>
   </head>
   <body id="body">
-    <div class="spellbook">
+    <spell-book>
       <div
         id="spellbook-sections"
         class="spellbook-sections"
         onclick="loadFromSpellbook(event)"
       ></div>
-    </div>
+    </spell-book>
     <div id="bread-crumbs" class="bread-crumbs" onclick="loadBreadcrumb(event)">
       <div id="crumb-1" class="rune"></div>
     </div>
-    <div id="magic-circle" class="magic-circle rotation-on">
+    <magic-circle id="magic-circle" class="rotation-on"">
       <div class="container">
         <div class="circle"></div>
         <div id="links" class="links">
@@ -48,7 +48,7 @@
           <div id="rune8" class="rune rune8" draggable="true"></div>
         </div>
       </div>
-    </div>
+    </magic-circle>
     <div id="spell-result" class="spell-result"></div>
     <button id="rotation-toggle" class="rotation-toggle">
       Toggle Rotation Animation
