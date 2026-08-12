@@ -50,12 +50,20 @@
       </div>
     </magic-circle>
     <div id="spell-result" class="spell-result"></div>
-    <button id="rotation-toggle" class="rotation-toggle">
-      Toggle Rotation Animation
-    </button>
     <div class="cast-button-container">
       <button id="cast-button" class="cast-button">Cast Spell</button>
     </div>
+    <div class="settings">
+      <button id="rotation-toggle" class="rotation-toggle">
+        Toggle Rotation Animation
+      </button>
+      <radio-picker role="radiogroup">
+        <label><input type="radio" name="color-scheme" id="color-scheme-auto" checked>Auto</label>
+        <label><input type="radio" name="color-scheme" id="color-scheme-light">Light</label>
+        <label><input type="radio" name="color-scheme" id="color-scheme-dark">Dark</label>
+      </radio-picker> 
+    </div>
+
 
     <template id="spellbook-section-template">
       <details>

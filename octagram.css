@@ -20,6 +20,16 @@
   box-sizing: border-box;
 }
 
+body {
+  color-scheme: light dark;
+  &:has(#color-scheme-light:checked) {
+    color-scheme: light;
+  }
+  &:has(#color-scheme-dark:checked) {
+    color-scheme: dark;
+  }
+}
+
 html {
   height: 100%;
 }
@@ -29,7 +39,7 @@ body {
   width: 100%;
   margin: 0;
 
-  background-color: aliceblue;
+  background-color: light-dark(aliceblue, darkgrey);
   display: grid;
   grid-template-areas:
     "crumbs    crumbs crumbs"
@@ -39,6 +49,88 @@ body {
 
   align-items: center;
   justify-items: center;
+}
+
+.settings {
+  position: absolute;
+  top: 2em;
+  right: 2em;
+
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+radio-picker {
+  display: flex;
+
+  input {
+    display: none;
+  }
+
+  label {
+    --hue: 270;
+    background-color: light-dark(
+      hsl(var(--hue), 60%, 60%),
+      hsl(var(--hue), 30%, 60%)
+    );
+    display: flex;
+    padding: 10px;
+    border: 2px solid
+      light-dark(hsl(var(--hue), 60%, 40%), hsl(var(--hue), 30%, 40%));
+    cursor: pointer;
+
+    &:hover,
+    &:focus {
+      background-color: light-dark(
+        hsl(var(--hue), 80%, 60%),
+        hsl(var(--hue), 50%, 60%)
+      );
+    }
+
+    &:has(input:checked) {
+      box-shadow: inset 1px 1px 4px 0px black;
+      background-color: light-dark(
+        hsl(var(--hue), 80%, 60%),
+        hsl(var(--hue), 50%, 60%)
+      );
+    }
+
+    &:first-child {
+      border-radius: 10px 0 0 10px;
+    }
+
+    &:not(:last-child) {
+      border-inline-end: none;
+    }
+
+    &:last-child {
+      border-radius: 0 10px 10px 0;
+    }
+  }
+}
+
+button {
+  --hue: 150;
+  padding: 10px;
+  border-radius: 10px;
+
+  background-color: light-dark(
+    hsl(var(--hue), 60%, 60%),
+    hsl(var(--hue), 30%, 60%)
+  );
+  border: 2px solid
+    light-dark(hsl(var(--hue), 60%, 40%), hsl(var(--hue), 30%, 40%));
+
+  &:hover,
+  &:focus {
+    background-color: light-dark(
+      hsl(var(--hue), 80%, 60%),
+      hsl(var(--hue), 50%, 60%)
+    );
+  }
+
+  box-shadow: 1px 1px 4px black;
 }
 
 @keyframes rotate {
@@ -69,11 +161,11 @@ spell-book {
 }
 
 .spellbook-sections details {
-  background-color: lightgreen;
+  background-color: light-dark(hsl(120, 60%, 60%), hsl(120, 30%, 60%));
   padding: 0.5em;
   margin: 0.5em 0;
 
-  border: 2px solid green;
+  border: 2px solid light-dark(hsl(120, 60%, 40%), hsl(120, 30%, 40%));
   border-radius: 0.5em;
 }
 
@@ -359,10 +451,4 @@ magic-circle.rotation-on .rune {
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.rotation-toggle {
-  position: absolute;
-  top: 2em;
-  right: 2em;
 }
