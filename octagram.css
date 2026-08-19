@@ -79,6 +79,7 @@ radio-picker {
     border: 2px solid
       light-dark(hsl(var(--hue), 60%, 40%), hsl(var(--hue), 30%, 40%));
     cursor: pointer;
+    box-shadow: 1px 1px 4px black;
 
     &:hover,
     &:focus {
@@ -131,6 +132,10 @@ button {
   }
 
   box-shadow: 1px 1px 4px black;
+
+  &:active {
+    box-shadow: inset 1px 1px 4px 0px black;
+  }
 }
 
 @keyframes rotate {
@@ -161,12 +166,23 @@ spell-book {
 }
 
 .spellbook-sections details {
-  background-color: light-dark(hsl(120, 60%, 60%), hsl(120, 30%, 60%));
+  --hue: 120;
+  background-color: light-dark(
+    hsl(var(--hue), 60%, 60%),
+    hsl(var(--hue), 30%, 60%)
+  );
   padding: 0.5em;
   margin: 0.5em 0;
 
-  border: 2px solid light-dark(hsl(120, 60%, 40%), hsl(120, 30%, 40%));
+  border: 2px solid
+    light-dark(hsl(var(--hue), 60%, 40%), hsl(var(--hue), 30%, 40%));
   border-radius: 0.5em;
+
+  box-shadow: 1px 1px 4px black;
+
+  &:open {
+    box-shadow: inset 1px 1px 4px 0px black;
+  }
 }
 
 .rune-grid {
